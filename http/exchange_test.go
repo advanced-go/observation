@@ -21,5 +21,5 @@ func ExampleExchange_Invalid() {
 	//test: Exchange(nil) -> [status:Invalid Argument [error: request is nil]] [status-code:500]
 	//test: Exchange(nil) -> [status:Bad Request [error: invalid URI, authority does not match: "/search" "github/advanced-go/observation"]] [status-code:400]
 	//test: Exchange(nil) -> [status:Bad Request [error: invalid URI, path only contains an authority: "/github/advanced-go/observation"]] [status-code:400]
-	
+
 }
