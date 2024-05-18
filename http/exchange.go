@@ -15,12 +15,11 @@ import (
 // https://localhost:8081/github/advanced-go/observation:v1/search?q=golang
 
 const (
-	googleProvider = "google"
-	yahooProvider  = "yahoo"
+	timeseries = "timeseries"
 )
 
 var (
-	versionResponse = httpx.NewResponse(core.StatusOK(), core.VersionContent(module.Version))
+	authorityResponse = httpx.NewAuthorityResponse(module.Authority)
 )
 
 // Controllers - authority controllers
@@ -37,8 +36,10 @@ func Exchange(r *http.Request) (*http.Response, *core.Status) {
 		return httpx.NewErrorResponse(status), status
 	}
 	switch strings.ToLower(path) {
-	case core.VersionPath, core.InfoPath:
-		return httpx.NewInfoResponse(module.Into()), core.StatusOK()
+	case core.VersionPath:
+		return httpx.NewVersionResponse(module.Version), core.StatusOK()
+	case core.AuthorityPath:
+		return authorityResponse, core.StatusOK()
 	case core.HealthReadinessPath, core.HealthLivenessPath:
 		return httpx.NewHealthResponseOK(), core.StatusOK()
 	default:
