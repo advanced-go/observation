@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	PkgPath = "github/advanced-go/guidance/timeseries"
+	PkgPath = "github/advanced-go/observation/timeseries"
 )
 
 func init() {

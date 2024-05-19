@@ -26,7 +26,7 @@ var (
 // Controllers - authority controllers
 func Controllers() []*controller.Controller {
 	return []*controller.Controller{
-		controller.NewController("google-search", controller.NewPrimaryResource("www.google.com", time.Second*2, "", nil), nil),
+		controller.NewController("google-search", controller.NewPrimaryResource("www.google.com", "", time.Second*2, "", nil), nil),
 	}
 }
 
