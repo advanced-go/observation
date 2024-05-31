@@ -1,4 +1,4 @@
-package timeseries
+package timeseries1
 
 import (
 	"fmt"
@@ -7,10 +7,6 @@ import (
 	"github.com/advanced-go/stdlib/messaging"
 	"net/http"
 	"time"
-)
-
-const (
-	PkgPath = "github/advanced-go/observation/timeseries"
 )
 
 func init() {

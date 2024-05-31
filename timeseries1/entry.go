@@ -1,10 +1,9 @@
-package timeseries
+package timeseries1
 
 import "time"
 
-// Entry - timeseries access log struct
+// Entry - timeseries1 access log struct
 type Entry struct {
-	CustomerId     string
 	StartTime      time.Time
 	Duration       int64
 	DurationString string
@@ -13,7 +12,7 @@ type Entry struct {
 	Region     string
 	Zone       string
 	SubZone    string
-	Service    string
+	App        string
 	InstanceId string
 	RouteName  string
 
@@ -24,18 +23,11 @@ type Entry struct {
 	Host      string
 	Path      string
 
-	StatusCode  int32
-	BytesSent   int64
-	StatusFlags string
+	StatusCode int32
+	BytesSent  int64
 
-	Timeout        int32
-	RateLimit      float64
-	RateBurst      int32
-	Retry          bool
-	RetryRateLimit float64
-	RetryRateBurst int32
-	Failover       bool
-	Proxy          bool
+	Threshold      int
+	ThresholdFlags string
 }
 
 type EntryV2 struct {

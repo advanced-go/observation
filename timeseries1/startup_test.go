@@ -1,4 +1,4 @@
-package timeseries
+package timeseries1
 
 import (
 	"fmt"
