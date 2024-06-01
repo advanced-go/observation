@@ -25,11 +25,12 @@ const (
 // Upstream authorities/resources
 const (
 	DocumentsAuthority = "github/advanced-go/documents"
-	DocumentsResource  = "timeseries"
-	DocumentsPath      = "/github/advanced-go/documents:%stimeseries"
+	DocumentsPath      = DocumentsAuthority + ":%stimeseries"
+
 	DocumentsV1        = "v1"
 	DocumentsV2        = "v2"
 	DocumentsRouteName = "documents"
+	DocumentsResource  = "timeseries"
 )
 
 // Routes - upstream egress traffic route configuration

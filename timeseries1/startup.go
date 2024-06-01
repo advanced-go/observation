@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	entriesJson = "file://[cwd]/documents-v1.json"
+	entriesJson = "file:///c:/Users/markb/GitHub/observation/timeseries1/documents-v1.json"
 )
 
 func init() {
