@@ -4,28 +4,30 @@ import "time"
 
 // Entry - timeseries1 access log struct
 type Entry struct {
-	StartTime      time.Time
-	Duration       int64
-	DurationString string
-	Traffic        string
+	StartTime time.Time
+	Duration  int64
+	Traffic   string
 
 	Region     string
 	Zone       string
 	SubZone    string
-	App        string
+	Host       string
 	InstanceId string
-	RouteName  string
 
 	RequestId string
-	Url       string
+	RelatesTo string
 	Protocol  string
 	Method    string
-	Host      string
+	Authority string
+	Url       string
 	Path      string
 
 	StatusCode int32
-	BytesSent  int64
+	Encoding   string
+	Bytes      int64
 
+	Route          string
+	RouteTo        string
 	Threshold      int
 	ThresholdFlags string
 }

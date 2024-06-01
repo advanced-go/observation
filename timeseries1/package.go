@@ -27,26 +27,30 @@ var (
 	}
 )
 
+func errorInvalidURL(path string) *core.Status {
+	return core.NewStatusError(core.StatusInvalidArgument, errors.New(fmt.Sprintf("invalid argument: URL path is invalid %v", path)))
+}
+
 // Get - resource GET
 func Get(ctx context.Context, h http.Header, url *url.URL) ([]Entry, *core.Status) {
 	if url == nil || !strings.HasPrefix(url.Path, module.TimeseriesResource) {
-		return nil, core.NewStatusError(http.StatusBadRequest, errors.New(fmt.Sprintf("invalid or nil URL")))
+		return nil, core.NewStatusError(core.StatusInvalidArgument, errors.New(fmt.Sprintf("invalid or nil URL")))
 	}
 	if url.Query() == nil {
-		return nil, core.NewStatusError(http.StatusBadRequest, errors.New(fmt.Sprintf("query arguments are nil")))
+		return nil, core.NewStatusError(core.StatusInvalidArgument, errors.New(fmt.Sprintf("query arguments are nil")))
 	}
 	switch url.Path {
 	case module.TimeseriesResource:
-		return get[core.Log](ctx, core.AddRequestId(h), url.Query())
+		return get[core.Log](ctx, core.AddRequestId(h), url)
 	default:
-		return nil, core.StatusBadRequest()
+		return nil, errorInvalidURL(url.Path)
 	}
 }
 
-// Put - resource PUT
+// Put - resource PUT, with optional content override
 func Put(r *http.Request, body []Entry) *core.Status {
 	if r == nil || r.URL == nil || !strings.HasPrefix(r.URL.Path, module.TimeseriesResource) {
-		return core.NewStatusError(http.StatusBadRequest, errors.New("invalid URL"))
+		return core.NewStatusError(core.StatusInvalidArgument, errors.New("invalid URL"))
 	}
 	if body == nil {
 		content, status := json2.New[[]Entry](r.Body, r.Header)
@@ -61,6 +65,6 @@ func Put(r *http.Request, body []Entry) *core.Status {
 	case module.TimeseriesResource:
 		return put[core.Log](r.Context(), core.AddRequestId(r.Header), body)
 	default:
-		return core.StatusBadRequest()
+		return errorInvalidURL(r.URL.Path)
 	}
 }

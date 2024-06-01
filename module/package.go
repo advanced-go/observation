@@ -9,13 +9,13 @@ const (
 	TimeseriesResource = "timeseries"
 )
 
+// Upstream authorities/resources
 const (
 	DocumentsAuthority = "github/advanced-go/documents"
 	DocumentsResource  = "timeseries"
 	DocumentsPath      = "/github/advanced-go/documents:%stimeseries"
-
-	DocumentsV1 = "v1"
-	DocumentsV2 = "v2"
+	DocumentsV1        = "v1"
+	DocumentsV2        = "v2"
 )
 
 // Configuration keys used on startup for map values
