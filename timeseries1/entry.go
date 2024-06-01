@@ -4,32 +4,32 @@ import "time"
 
 // Entry - timeseries1 access log struct
 type Entry struct {
-	StartTime time.Time
-	Duration  int64
-	Traffic   string
+	StartTime time.Time `json:"start-time"`
+	Duration  int64     `json:"duration"`
+	Traffic   string    `json:"traffic"`
 
-	Region     string
-	Zone       string
-	SubZone    string
-	Host       string
-	InstanceId string
+	Region     string `json:"region"`
+	Zone       string `json:"zone"`
+	SubZone    string `json:"sub-zone"`
+	Host       string `json:"host"`
+	InstanceId string `json:"instance-id"`
 
-	RequestId string
-	RelatesTo string
-	Protocol  string
-	Method    string
-	Authority string
-	Url       string
-	Path      string
+	RequestId string `json:"request-id"`
+	RelatesTo string `json:"relates-to"`
+	Protocol  string `json:"proto"`
+	Method    string `json:"method"`
+	Authority string `json:"authority"`
+	Url       string `json:"url"`
+	Path      string `json:"path"`
 
-	StatusCode int32
-	Encoding   string
-	Bytes      int64
+	StatusCode int32  `json:"status-code"`
+	Encoding   string `json:"encoding"`
+	Bytes      int64  `json:"bytes"`
 
-	Route          string
-	RouteTo        string
-	Threshold      int
-	ThresholdFlags string
+	Route          string `json:"route"`
+	RouteTo        string `json:"route-to"`
+	Threshold      int    `json:"threshold"`
+	ThresholdFlags string `json:"flags"`
 }
 
 type EntryV2 struct {
