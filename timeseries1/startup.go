@@ -1,12 +1,21 @@
 package timeseries1
 
 import (
+	"context"
 	"fmt"
+	"github.com/advanced-go/observation/module"
+	"github.com/advanced-go/stdlib/controller"
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/host"
+	"github.com/advanced-go/stdlib/httpx"
+	"github.com/advanced-go/stdlib/json"
 	"github.com/advanced-go/stdlib/messaging"
 	"net/http"
 	"time"
+)
+
+const (
+	entriesJson = "file://[cwd]/timeseries1-entry.json"
 )
 
 func init() {
@@ -15,6 +24,7 @@ func init() {
 		fmt.Printf("init(\"%v\") failure: [%v]\n", PkgPath, err)
 	}
 	a.Run()
+	initializeDocuments()
 }
 
 func messageHandler(msg *messaging.Message) {
@@ -28,4 +38,43 @@ func messageHandler(msg *messaging.Message) {
 		// Any processing for a Shutdown/Ping event would be here
 		messaging.SendReply(msg, core.NewStatusDuration(http.StatusOK, time.Since(start)))
 	}
+}
+
+var (
+	docsContent = httpx.NewListContent[Entry, struct{}, struct{}](false, matchEntry, nil, nil)
+	docsRsc     = httpx.NewResource[Entry, struct{}, struct{}](module.DocumentsResource, docsContent, nil)
+	docs, err   = httpx.NewHost(module.DocumentsAuthority, mapResource, docsRsc.Do)
+)
+
+func initializeDocuments() {
+	defer controller.DisableLogging(true)()
+	if err != nil {
+		fmt.Printf("error: new resource %v", err)
+	}
+	entries, status := json.New[[]Entry](entriesJson, nil)
+	if !status.OK() {
+		fmt.Printf("initializeDocuments.New() -> [status:%v]\n", status)
+		return
+	}
+	ctrl := controller.New(Controllers[0], docs.Do)
+	controller.RegisterController(ctrl)
+	status = put[core.Output](context.Background(), nil, entries)
+	if !status.OK() {
+		fmt.Printf("initializeDocuments.put() [status:%v]\n", status)
+	}
+
+}
+
+func matchEntry(req *http.Request, item *Entry) bool {
+	filter := core.NewOrigin(req.URL.Query())
+	target := core.Origin{Region: item.Region, Zone: item.Zone, SubZone: item.SubZone, Host: item.Host}
+	if core.OriginMatch(target, filter) {
+		return true
+	}
+	return false
+}
+
+func mapResource(r *http.Request) string {
+	return module.DocumentsResource
+
 }
