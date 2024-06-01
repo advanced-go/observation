@@ -5,26 +5,15 @@ import (
 	"errors"
 	"fmt"
 	"github.com/advanced-go/observation/module"
-	"github.com/advanced-go/stdlib/controller"
 	"github.com/advanced-go/stdlib/core"
 	json2 "github.com/advanced-go/stdlib/json"
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 )
 
 const (
 	PkgPath = "github/advanced-go/observation/resiliency1"
-
-	DocumentsControllerName = "documents"
-)
-
-// Controllers - egress traffic controllers
-var (
-	Controllers = []controller.Config{
-		{DocumentsControllerName, "localhost:8081", module.DocumentsAuthority, core.HealthLivenessPath, time.Second * 2},
-	}
 )
 
 func errorInvalidURL(path string) *core.Status {

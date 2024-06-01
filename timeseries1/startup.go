@@ -15,13 +15,13 @@ import (
 )
 
 const (
-	entriesJson = "file://[cwd]/timeseries1-entry.json"
+	entriesJson = "file://[cwd]/documents-v1.json"
 )
 
 func init() {
-	a, err := host.RegisterControlAgent(PkgPath, messageHandler)
-	if err != nil {
-		fmt.Printf("init(\"%v\") failure: [%v]\n", PkgPath, err)
+	a, err1 := host.RegisterControlAgent(PkgPath, messageHandler)
+	if err1 != nil {
+		fmt.Printf("init(\"%v\") failure: [%v]\n", PkgPath, err1)
 	}
 	a.Run()
 	initializeDocuments()
@@ -56,7 +56,11 @@ func initializeDocuments() {
 		fmt.Printf("initializeDocuments.New() -> [status:%v]\n", status)
 		return
 	}
-	ctrl := controller.New(Controllers[0], docs.Do)
+	cfg, ok := module.ControllerConfig(module.DocumentsControllerName)
+	if !ok {
+		fmt.Printf("initializeDocuments.ControllerConfig() [ok:%v]\n", ok)
+	}
+	ctrl := controller.New(cfg, docs.Do)
 	controller.RegisterController(ctrl)
 	status = put[core.Output](context.Background(), nil, entries)
 	if !status.OK() {
