@@ -8,7 +8,7 @@ import (
 
 const (
 	Authority          = "github/advanced-go/observation"
-	Name               = "observation"
+	RouteName          = "observation"
 	Version            = "2.2.2"
 	Ver1               = "v1"
 	Ver2               = "v2"
