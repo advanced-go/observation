@@ -26,6 +26,8 @@ func Exchange(r *http.Request) (*http.Response, *core.Status) {
 	if !status.OK() {
 		return httpx.NewResponse(status, status.Err), status
 	}
+	core.AddRequestId(r.Header)
+	r.Header.Set(core.XAuthority, module.Authority)
 	switch strings.ToLower(p.Resource) {
 	case module.TimeseriesResource:
 		return timeseriesExchange(r, p)

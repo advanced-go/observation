@@ -20,7 +20,7 @@ func get[E core.ErrorHandler](ctx context.Context, h http.Header, u *url.URL) (e
 
 	url := uri.Expansion("", module.DocumentsPath, module.DocumentsV1, u.Query())
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
-	httpx.Forward(req.Header, h)
+	httpx.Forward(req.Header, h, core.XAuthority)
 	resp, status1 := httpx.DoExchange(req)
 	if !status1.OK() {
 		e.Handle(status1, core.RequestId(h))
