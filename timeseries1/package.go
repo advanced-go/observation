@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	PkgPath = "github/advanced-go/observation/resiliency1"
+	PkgPath = "github/advanced-go/observation/timeseries1"
 )
 
 func errorInvalidURL(path string) *core.Status {
