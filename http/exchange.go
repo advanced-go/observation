@@ -19,7 +19,8 @@ var (
 // Exchange - HTTP exchange function
 func Exchange(r *http.Request) (*http.Response, *core.Status) {
 	if r == nil {
-		return httpx.NewResponseWithStatus(core.StatusBadRequest(), nil)
+		status := core.NewStatusError(http.StatusBadRequest, errors.New("request is nil"))
+		return httpx.NewResponseWithStatus(status, status.Err)
 	}
 	p, status := httpx.ValidateURL(r.URL, module.Authority)
 	if !status.OK() {
