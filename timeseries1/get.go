@@ -17,7 +17,7 @@ func get[E core.ErrorHandler](ctx context.Context, h http.Header, values url.Val
 	if values == nil {
 		return nil, nil, core.StatusNotFound()
 	}
-	url := uri.Expansion("", module.DocumentsPath, module.DocumentsV1, values)
+	url := uri.Expansion("", module.TimeseriesPath, module.TimeseriesV1, values)
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	httpx.Forward(req.Header, h, core.XAuthority)
 	resp, status1 := httpx.DoExchange(req)

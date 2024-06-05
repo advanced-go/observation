@@ -7,12 +7,12 @@ import (
 )
 
 const (
-	Authority          = "github/advanced-go/observation"
-	RouteName          = "observation"
-	Version            = "2.2.2"
-	Ver1               = "v1"
-	Ver2               = "v2"
-	TimeseriesResource = "timeseries"
+	Authority             = "github/advanced-go/observation"
+	RouteName             = "observation"
+	Version               = "2.2.2"
+	Ver1                  = "v1"
+	Ver2                  = "v2"
+	ObservationTimeseries = "timeseries"
 )
 
 // Configuration keys used on startup for map values
@@ -24,19 +24,18 @@ const (
 
 // Upstream authorities/resources
 const (
-	DocumentsAuthority = "github/advanced-go/documents"
-	DocumentsPath      = DocumentsAuthority + ":%stimeseries"
-
-	DocumentsV1        = "v1"
-	DocumentsV2        = "v2"
-	DocumentsRouteName = "documents"
-	DocumentsResource  = "timeseries"
+	TimeseriesAuthority = "github/advanced-go/timeseries"
+	TimeseriesPath      = TimeseriesAuthority + ":%s" + TimeseriesAccessResource
+	TimeseriesV1        = "v1"
+	//TimeseriesV2        = "v2"
+	TimeseriesRouteName      = "timeseries-access"
+	TimeseriesAccessResource = "access"
 )
 
 // Routes - upstream egress traffic route configuration
 var (
 	Routes = []controller.Config{
-		{DocumentsRouteName, "localhost:8081", DocumentsAuthority, core.HealthLivenessPath, time.Second * 2},
+		{TimeseriesRouteName, "localhost:8081", TimeseriesAuthority, core.HealthLivenessPath, time.Second * 2},
 	}
 )
 

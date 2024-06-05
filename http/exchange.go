@@ -31,7 +31,7 @@ func Exchange(r *http.Request) (*http.Response, *core.Status) {
 	core.AddRequestId(r.Header)
 	r.Header.Set(core.XAuthority, module.Authority)
 	switch p.Resource {
-	case module.TimeseriesResource:
+	case module.ObservationTimeseries:
 		return timeseriesExchange[core.Log](r, p)
 	case core.VersionPath:
 		return httpx.NewVersionResponse(module.Version), core.StatusOK()

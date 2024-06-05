@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	entriesJson = "file:///c:/Users/markb/GitHub/observation/timeseries1/documents-v1.json"
+	entriesJson = "file:///c:/Users/markb/GitHub/observation/timeseries1/access-v1.json"
 )
 
 func init() {
@@ -41,9 +41,9 @@ func messageHandler(msg *messaging.Message) {
 }
 
 var (
-	docsContent = httpx.NewListContent[Entry, struct{}, struct{}](false, matchEntry, nil, nil)
-	docsRsc     = httpx.NewResource[Entry, struct{}, struct{}](module.DocumentsResource, docsContent, nil)
-	docs, err   = httpx.NewHost(module.DocumentsAuthority, mapResource, docsRsc.Do)
+	content        = httpx.NewListContent[Entry, struct{}, struct{}](false, matchEntry, nil, nil)
+	resource       = httpx.NewResource[Entry, struct{}, struct{}](module.TimeseriesAccessResource, content, nil)
+	authority, err = httpx.NewHost(module.TimeseriesAuthority, mapResource, resource.Do)
 )
 
 func initializeDocuments() {
@@ -56,11 +56,11 @@ func initializeDocuments() {
 		fmt.Printf("initializeDocuments.New() -> [status:%v]\n", status)
 		return
 	}
-	cfg, ok := module.GetRoute(module.DocumentsRouteName)
+	cfg, ok := module.GetRoute(module.TimeseriesRouteName)
 	if !ok {
 		fmt.Printf("initializeDocuments.GetRoute() [ok:%v]\n", ok)
 	}
-	ctrl := controller.New(cfg, docs.Do)
+	ctrl := controller.New(cfg, authority.Do)
 	controller.RegisterController(ctrl)
 	_, status = put[core.Output](context.Background(), nil, entries)
 	if !status.OK() {
@@ -79,6 +79,6 @@ func matchEntry(req *http.Request, item *Entry) bool {
 }
 
 func mapResource(r *http.Request) string {
-	return module.DocumentsResource
+	return module.TimeseriesAccessResource
 
 }
