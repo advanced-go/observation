@@ -2,7 +2,6 @@ package timeseries1
 
 import (
 	"context"
-	"errors"
 	"github.com/advanced-go/observation/module"
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/httpx"
@@ -12,19 +11,19 @@ import (
 	"net/url"
 )
 
-func get[E core.ErrorHandler](ctx context.Context, h http.Header, u *url.URL) (entries []Entry, status *core.Status) {
+func get[E core.ErrorHandler](ctx context.Context, h http.Header, values url.Values) (entries []Entry, h2 http.Header, status *core.Status) {
 	var e E
-	if u == nil {
-		return nil, core.NewStatusError(core.StatusInvalidArgument, errors.New("invalid argument: URL is nil"))
-	}
 
-	url := uri.Expansion("", module.DocumentsPath, module.DocumentsV1, u.Query())
+	if values == nil {
+		return nil, nil, core.StatusNotFound()
+	}
+	url := uri.Expansion("", module.DocumentsPath, module.DocumentsV1, values)
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	httpx.Forward(req.Header, h, core.XAuthority)
 	resp, status1 := httpx.DoExchange(req)
 	if !status1.OK() {
 		e.Handle(status1, core.RequestId(h))
-		return nil, status1
+		return nil, h2, status1
 	}
 	entries, status = json.New[[]Entry](resp.Body, h)
 	if !status.OK() {

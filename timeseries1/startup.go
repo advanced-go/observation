@@ -62,7 +62,7 @@ func initializeDocuments() {
 	}
 	ctrl := controller.New(cfg, docs.Do)
 	controller.RegisterController(ctrl)
-	status = put[core.Output](context.Background(), nil, entries)
+	_, status = put[core.Output](context.Background(), nil, entries)
 	if !status.OK() {
 		fmt.Printf("initializeDocuments.put() [status:%v]\n", status)
 	}

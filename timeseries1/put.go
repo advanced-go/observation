@@ -12,14 +12,14 @@ import (
 	"net/http"
 )
 
-func put[E core.ErrorHandler](ctx context.Context, h http.Header, body []Entry) *core.Status {
+func put[E core.ErrorHandler](ctx context.Context, h http.Header, body []Entry) (http.Header, *core.Status) {
 	var e E
 
 	url := uri.Expansion("", module.DocumentsPath, module.DocumentsV1, nil)
 	rc, _, status := createReadCloser(body)
 	if !status.OK() {
 		e.Handle(status, core.RequestId(h))
-		return status
+		return nil, status
 	}
 	req, _ := http.NewRequestWithContext(ctx, http.MethodPut, url, rc)
 	httpx.Forward(req.Header, h, core.XAuthority)
@@ -27,7 +27,7 @@ func put[E core.ErrorHandler](ctx context.Context, h http.Header, body []Entry) 
 	if !status.OK() {
 		e.Handle(status, core.RequestId(h))
 	}
-	return status
+	return nil, status
 }
 
 func createReadCloser(body any) (io.ReadCloser, int64, *core.Status) {

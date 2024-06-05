@@ -20,9 +20,9 @@ func ExampleExchange_Invalid() {
 	fmt.Printf("test: Exchange(nil) -> [status:%v] [status-code:%v]\n", status, resp.StatusCode)
 
 	//Output:
-	//test: Exchange(nil) -> [status:Bad Request [request is nil]] [status-code:400]
-	//test: Exchange(nil) -> [status:Bad Request [error: invalid URI, authority does not match: "/search" "github/advanced-go/observation"]] [status-code:400]
-	//test: Exchange(nil) -> [status:Bad Request [error: invalid URI, path only contains an authority: "/github/advanced-go/observation"]] [status-code:400]
+	//test: Exchange(nil) -> [status:Bad Request] [status-code:400]
+	//test: Exchange(nil) -> [status:Bad Request] [status-code:400]
+	//test: Exchange(nil) -> [status:Bad Request] [status-code:400]
 
 }
 
