@@ -2,6 +2,7 @@ package timeseries1
 
 import (
 	"fmt"
+	"net/http"
 	"net/url"
 )
 
@@ -71,10 +72,21 @@ func ExampleResolve() {
 	url = Resolve(host, auth, vers, rsc, values, nil)
 	fmt.Printf("test: Resolve(\"%v\",\"%v\",\"%v\",\"%v\") -> [%v]\n", host, auth, vers, rsc, url)
 
+	h := make(http.Header)
+	//h.Add(BuildPath(module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, nil), getAllReq)
+	url = Resolve(host, auth, vers, rsc, values, h)
+	fmt.Printf("test: Resolve(\"%v\",\"%v\",\"%v\",\"%v\") -> [%v]\n", host, auth, vers, rsc, url)
+
+	h.Add(BuildPath(auth, vers, rsc, values), getAllReq)
+	url = Resolve(host, auth, vers, rsc, values, h)
+	fmt.Printf("test: Resolve(\"%v\",\"%v\",\"%v\",\"%v\") -> [%v]\n", host, auth, vers, rsc, url)
+
 	//Output:
 	//test: Resolve("","github/advanced-go/timeseries","v2","access") -> [github/advanced-go/timeseries:v2/access]
 	//test: Resolve("","github/advanced-go/timeseries","v2","access") -> [github/advanced-go/timeseries:v2/access?region=%2A]
 	//test: Resolve("www.google.com","github/advanced-go/timeseries","v2","access") -> [https://www.google.com/github/advanced-go/timeseries:v2/access?region=%2A]
 	//test: Resolve("localhost:8080","github/advanced-go/timeseries","v2","access") -> [http://localhost:8080/github/advanced-go/timeseries:v2/access?region=%2A]
+	//test: Resolve("localhost:8080","github/advanced-go/timeseries","v2","access") -> [http://localhost:8080/github/advanced-go/timeseries:v2/access?region=%2A]
+	//test: Resolve("localhost:8080","github/advanced-go/timeseries","v2","access") -> [file://[cwd]/timeseries1test/get-all-resp-v1.txt]
 	
 }
