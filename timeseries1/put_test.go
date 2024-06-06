@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/advanced-go/observation/module"
 	"github.com/advanced-go/stdlib/core"
+	"github.com/advanced-go/stdlib/uri"
 	"net/http"
 	"time"
 )
@@ -14,7 +15,7 @@ const (
 
 func ExamplePut() {
 	h := make(http.Header)
-	h.Add(BuildPath(module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, nil), putResp)
+	h.Add(uri.BuildPath(module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, nil), putResp)
 
 	_, status := put[core.Output](nil, h, nil)
 	fmt.Printf("test: put(nil,h,nil) -> [status:%v]\n", status)

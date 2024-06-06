@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/advanced-go/observation/module"
 	"github.com/advanced-go/stdlib/core"
+	"github.com/advanced-go/stdlib/uri"
 	"net/http"
 	"net/url"
 )
@@ -15,7 +16,7 @@ const (
 func ExampleGet() {
 	values := make(url.Values)
 	h := make(http.Header)
-	h.Add(BuildPath(module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, nil), getAllResp)
+	h.Add(uri.BuildPath(module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, nil), getAllResp)
 	entries, _, status := get[core.Output](nil, h, values)
 
 	fmt.Printf("test: get() -> [status:%v] [entries:%v]\n", status, len(entries))

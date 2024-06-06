@@ -7,6 +7,7 @@ import (
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/httpx"
 	json2 "github.com/advanced-go/stdlib/json"
+	"github.com/advanced-go/stdlib/uri"
 	"io"
 	"net/http"
 )
@@ -20,13 +21,12 @@ func put[E core.ErrorHandler](ctx context.Context, h http.Header, body []Entry) 
 	if ctx == nil {
 		ctx = context.Background()
 	}
-	//url := uri.Expansion("", module.TimeseriesPath, module.TimeseriesV1, nil)
 	rc, _, status := createReadCloser(body)
 	if !status.OK() {
 		e.Handle(status, core.RequestId(h))
 		return nil, status
 	}
-	url := Resolve("", module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, nil, h)
+	url := uri.Resolve("", module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, nil, h)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPut, url, rc)
 	if err != nil {
 		return nil, core.NewStatusError(core.StatusInvalidArgument, err)

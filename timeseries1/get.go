@@ -6,6 +6,7 @@ import (
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/httpx"
 	"github.com/advanced-go/stdlib/json"
+	"github.com/advanced-go/stdlib/uri"
 	"net/http"
 	"net/url"
 )
@@ -20,7 +21,7 @@ func get[E core.ErrorHandler](ctx context.Context, h http.Header, values url.Val
 		ctx = context.Background()
 	}
 	//url := uri.Expansion("", module.TimeseriesPath, module.TimeseriesV1, values)
-	url := Resolve("", module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, values, h)
+	url := uri.Resolve("", module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, values, h)
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, nil, core.NewStatusError(core.StatusInvalidArgument, err)
