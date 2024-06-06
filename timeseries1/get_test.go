@@ -9,13 +9,13 @@ import (
 )
 
 const (
-	getAllReq = "file://[cwd]/timeseries1test/get-all-resp-v1.txt"
+	getAllResp = "file://[cwd]/timeseries1test/get-all-resp-v1.txt"
 )
 
 func ExampleGet() {
 	values := make(url.Values)
 	h := make(http.Header)
-	h.Add(BuildPath(module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, nil), getAllReq)
+	h.Add(BuildPath(module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, nil), getAllResp)
 	entries, _, status := get[core.Output](nil, h, values)
 
 	fmt.Printf("test: get() -> [status:%v] [entries:%v]\n", status, len(entries))

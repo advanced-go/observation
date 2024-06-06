@@ -40,6 +40,10 @@ func BuildPath(authority, version, resource string, values url.Values) string {
 	return path.String()
 }
 
+func BuildRsc(version, resource string) string {
+	return formatVersion(version) + resource
+}
+
 func formatValues(values url.Values) string {
 	if values == nil {
 		return ""

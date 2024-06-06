@@ -6,6 +6,23 @@ import (
 	"net/url"
 )
 
+func ExampleBuildRsc() {
+	ver := ""
+	rsc := "access"
+	r := BuildRsc(ver, rsc)
+
+	fmt.Printf("test: BuildRsc(\"%v\",\"%v\") -> [%v]\n", ver, rsc, r)
+
+	ver = "v1"
+	r = BuildRsc(ver, rsc)
+	fmt.Printf("test: BuildRsc(\"%v\",\"%v\") -> [%v]\n", ver, rsc, r)
+
+	//Output:
+	//test: BuildRsc("","access") -> [access]
+	//test: BuildRsc("v1","access") -> [v1/access]
+
+}
+
 func ExampleBuildOrigin() {
 	host := ""
 	o := BuildOrigin(host)
@@ -77,7 +94,7 @@ func ExampleResolve() {
 	url = Resolve(host, auth, vers, rsc, values, h)
 	fmt.Printf("test: Resolve(\"%v\",\"%v\",\"%v\",\"%v\") -> [%v]\n", host, auth, vers, rsc, url)
 
-	h.Add(BuildPath(auth, vers, rsc, values), getAllReq)
+	h.Add(BuildPath(auth, vers, rsc, values), getAllResp)
 	url = Resolve(host, auth, vers, rsc, values, h)
 	fmt.Printf("test: Resolve(\"%v\",\"%v\",\"%v\",\"%v\") -> [%v]\n", host, auth, vers, rsc, url)
 
@@ -88,5 +105,5 @@ func ExampleResolve() {
 	//test: Resolve("localhost:8080","github/advanced-go/timeseries","v2","access") -> [http://localhost:8080/github/advanced-go/timeseries:v2/access?region=%2A]
 	//test: Resolve("localhost:8080","github/advanced-go/timeseries","v2","access") -> [http://localhost:8080/github/advanced-go/timeseries:v2/access?region=%2A]
 	//test: Resolve("localhost:8080","github/advanced-go/timeseries","v2","access") -> [file://[cwd]/timeseries1test/get-all-resp-v1.txt]
-	
+
 }
