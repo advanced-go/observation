@@ -1,7 +1,6 @@
 package module
 
 import (
-	"fmt"
 	"github.com/advanced-go/stdlib/controller"
 	"github.com/advanced-go/stdlib/core"
 	"time"
@@ -26,7 +25,6 @@ const (
 // Upstream authorities/resources
 const (
 	TimeseriesAuthority = "github/advanced-go/timeseries"
-	TimeseriesPath      = TimeseriesAuthority + ":%s" + TimeseriesAccessResource
 	TimeseriesV1        = "v1"
 	//TimeseriesV2        = "v2"
 	TimeseriesRouteName      = "timeseries-access"
@@ -43,15 +41,4 @@ var (
 // GetRoute - get the route configuration
 func GetRoute(routeName string) (controller.Config, bool) {
 	return controller.GetRoute(routeName, Routes)
-}
-
-func BuildPath(path, version string) string {
-	return fmt.Sprintf(path, formatVersion(version))
-}
-
-func formatVersion(version string) string {
-	if version == "" {
-		return ""
-	}
-	return version + "/"
 }
