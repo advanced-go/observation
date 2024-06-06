@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	entriesJson = "file:///c:/Users/markb/GitHub/observation/timeseries1/access-v1.json"
+	entriesJson = "file:///c:/Users/markb/GitHub/observation/timeseries1/timeseries1test/access-v1.json"
 )
 
 func init() {
@@ -41,15 +41,15 @@ func messageHandler(msg *messaging.Message) {
 }
 
 var (
-	content        = httpx.NewListContent[Entry, struct{}, struct{}](false, matchEntry, nil, nil)
-	resource       = httpx.NewResource[Entry, struct{}, struct{}](module.TimeseriesAccessResource, content, nil)
-	authority, err = httpx.NewHost(module.TimeseriesAuthority, mapResource, resource.Do)
+	content            = httpx.NewListContent[Entry, struct{}, struct{}](false, matchEntry, nil, nil)
+	resource           = httpx.NewResource[Entry, struct{}, struct{}](module.TimeseriesAccessResource, content, nil)
+	authority, hostErr = httpx.NewHost(module.TimeseriesAuthority, mapResource, resource.Do)
 )
 
 func initializeDocuments() {
 	defer controller.DisableLogging(true)()
-	if err != nil {
-		fmt.Printf("error: new resource %v", err)
+	if hostErr != nil {
+		fmt.Printf("error: new resource %v", hostErr)
 	}
 	entries, status := json.New[[]Entry](entriesJson, nil)
 	if !status.OK() {
