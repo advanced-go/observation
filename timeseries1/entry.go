@@ -29,7 +29,7 @@ type Entry struct {
 	Route          string `json:"route"`
 	RouteTo        string `json:"route-to"`
 	Threshold      int    `json:"threshold"`
-	ThresholdFlags string `json:"flags"`
+	ThresholdFlags string `json:"threshold-flags"`
 }
 
 type EntryV2 struct {
