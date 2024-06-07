@@ -42,7 +42,7 @@ func messageHandler(msg *messaging.Message) {
 
 var (
 	content            = httpx.NewListContent[Entry, struct{}, struct{}](false, matchEntry, nil, nil)
-	resource           = httpx.NewResource[Entry, struct{}, struct{}](module.TimeseriesAccessResource, content, nil)
+	resource           = httpx.NewResource[Entry, struct{}, struct{}](module.TimeseriesAccessResourceV1, content, nil)
 	authority, hostErr = httpx.NewHost(module.TimeseriesAuthority, mapResource, resource.Do)
 )
 
@@ -79,6 +79,6 @@ func matchEntry(req *http.Request, item *Entry) bool {
 }
 
 func mapResource(r *http.Request) string {
-	return module.TimeseriesAccessResource
+	return module.TimeseriesAccessResourceV1
 
 }

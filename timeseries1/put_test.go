@@ -15,7 +15,7 @@ const (
 
 func ExamplePut() {
 	h := make(http.Header)
-	h.Add(uri.BuildPath(module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, nil), putResp)
+	h.Add(uri.BuildPath(module.TimeseriesAuthority, module.TimeseriesAccessResourceV1, nil), putResp)
 
 	_, status := put[core.Output](nil, h, nil)
 	fmt.Printf("test: put(nil,h,nil) -> [status:%v]\n", status)

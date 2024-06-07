@@ -16,7 +16,7 @@ const (
 func ExampleGet() {
 	values := make(url.Values)
 	h := make(http.Header)
-	h.Add(uri.BuildPath(module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, nil), getAllResp)
+	h.Add(uri.BuildPath(module.TimeseriesAuthority, module.TimeseriesAccessResourceV1, nil), getAllResp)
 	entries, _, status := get[core.Output](nil, h, values)
 
 	fmt.Printf("test: get() -> [status:%v] [entries:%v]\n", status, len(entries))

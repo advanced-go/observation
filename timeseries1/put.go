@@ -26,7 +26,7 @@ func put[E core.ErrorHandler](ctx context.Context, h http.Header, body []Entry) 
 		e.Handle(status, core.RequestId(h))
 		return nil, status
 	}
-	url := uri.Resolve("", module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, nil, h)
+	url := uri.Resolve("", module.TimeseriesAuthority, module.TimeseriesAccessResourceV1, nil, h)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPut, url, rc)
 	if err != nil {
 		return nil, core.NewStatusError(core.StatusInvalidArgument, err)

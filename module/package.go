@@ -24,11 +24,9 @@ const (
 
 // Upstream authorities/resources
 const (
-	TimeseriesAuthority = "github/advanced-go/timeseries"
-	TimeseriesV1        = "v1"
-	//TimeseriesV2        = "v2"
-	TimeseriesRouteName      = "timeseries-access"
-	TimeseriesAccessResource = "access"
+	TimeseriesAuthority        = "github/advanced-go/timeseries"
+	TimeseriesAccessResourceV1 = "v1/access"
+	TimeseriesRouteName        = "timeseries-access"
 )
 
 // Routes - upstream egress traffic route configuration

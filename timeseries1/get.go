@@ -20,7 +20,7 @@ func get[E core.ErrorHandler](ctx context.Context, h http.Header, values url.Val
 	if ctx == nil {
 		ctx = context.Background()
 	}
-	url := uri.Resolve("", module.TimeseriesAuthority, module.TimeseriesV1, module.TimeseriesAccessResource, values, h)
+	url := uri.Resolve("", module.TimeseriesAuthority, module.TimeseriesAccessResourceV1, values, h)
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, nil, core.NewStatusError(core.StatusInvalidArgument, err)
