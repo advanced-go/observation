@@ -3,15 +3,33 @@ package timeseries1
 import (
 	"context"
 	"errors"
+	"github.com/advanced-go/observation/module"
+	"github.com/advanced-go/stdlib/controller"
 	"github.com/advanced-go/stdlib/core"
 	json2 "github.com/advanced-go/stdlib/json"
+	"github.com/advanced-go/stdlib/uri"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 const (
-	PkgPath = "github/advanced-go/observation/timeseries1"
+	PkgPath   = "github/advanced-go/observation/timeseries1"
+	RouteName = "timeseries-access"
+	hostKey   = "host-key"
 )
+
+var resolver = uri.NewResolver([]uri.HostEntry{{Key: hostKey, Host: "www.observation.com", Proxy: false}})
+
+// Route - upstream egress traffic route configuration
+func Route(routeName string) (*controller.Config, bool) {
+	switch routeName {
+	case RouteName:
+		return &controller.Config{RouteName: RouteName, Host: resolver.Host(hostKey), Authority: module.TimeseriesAuthority, LivenessPath: core.HealthLivenessPath, Duration: time.Second * 2}, true
+	default:
+		return nil, false
+	}
+}
 
 // Get - resource GET
 func Get(ctx context.Context, h http.Header, values url.Values) ([]Entry, http.Header, *core.Status) {
