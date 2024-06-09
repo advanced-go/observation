@@ -21,8 +21,8 @@ const (
 
 var resolver = uri.NewResolver([]uri.HostEntry{{Key: hostKey, Host: "www.observation.com", Proxy: false}})
 
-// Route - upstream egress traffic route configuration
-func Route(routeName string) (*controller.Config, bool) {
+// EgressRoute - upstream egress traffic route configuration
+func EgressRoute(routeName string) (*controller.Config, bool) {
 	switch routeName {
 	case RouteName:
 		return &controller.Config{RouteName: RouteName, Host: resolver.Host(hostKey), Authority: module.TimeseriesAuthority, LivenessPath: core.HealthLivenessPath, Duration: time.Second * 2}, true
