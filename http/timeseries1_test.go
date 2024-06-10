@@ -1,10 +1,8 @@
 package http
 
 import (
-	"fmt"
 	"github.com/advanced-go/observation/module"
 	"github.com/advanced-go/observation/timeseries1"
-	"github.com/advanced-go/stdlib/controller"
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/httpx"
 	"net/http"
@@ -20,6 +18,7 @@ var (
 	authority, hostErr = httpx.NewHost(module.TimeseriesAuthority, mapResource, resource.Do)
 )
 
+/*
 func initializeDocuments() {
 	defer controller.DisableLogging(true)()
 	if hostErr != nil {
@@ -42,6 +41,9 @@ func initializeDocuments() {
 	//}
 
 }
+
+
+*/
 
 func matchEntry(req *http.Request, item *timeseries1.Entry) bool {
 	filter := core.NewOrigin(req.URL.Query())
