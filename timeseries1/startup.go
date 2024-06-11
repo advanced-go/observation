@@ -2,6 +2,7 @@ package timeseries1
 
 import (
 	"fmt"
+	"github.com/advanced-go/observation/timeseries6"
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/host"
 	"github.com/advanced-go/stdlib/messaging"
@@ -12,7 +13,7 @@ import (
 func init() {
 	a, err1 := host.RegisterControlAgent(PkgPath, messageHandler)
 	if err1 != nil {
-		fmt.Printf("init(\"%v\") failure: [%v]\n", PkgPath, err1)
+		fmt.Printf("init(\"%v\") failure: [%v]\n", timeseries6.PkgPath, err1)
 	}
 	a.Run()
 }

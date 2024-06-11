@@ -1,0 +1,14 @@
+[
+  {
+    "region":"us-west",
+    "zone":"oregon",
+    "sub-zone":"dc1",
+    "host":"www.test-host.com"
+  },
+  {
+    "region":"us-west",
+    "zone":"oregon",
+    "sub-zone":"dc2",
+    "host":"www.search.yahoo.com"
+  }
+]

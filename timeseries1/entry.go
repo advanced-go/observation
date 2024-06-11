@@ -1,12 +1,17 @@
 package timeseries1
 
-import "time"
+import (
+	"errors"
+	"fmt"
+	"time"
+)
 
-// Entry - timeseries1 access log struct
+// Entry - timeseries access log struct
 type Entry struct {
 	StartTime time.Time `json:"start-time"`
 	Duration  int64     `json:"duration"`
 	Traffic   string    `json:"traffic"`
+	CreatedTS time.Time `json:"created-ts"`
 
 	Region     string `json:"region"`
 	Zone       string `json:"zone"`
@@ -18,7 +23,8 @@ type Entry struct {
 	RelatesTo string `json:"relates-to"`
 	Protocol  string `json:"proto"`
 	Method    string `json:"method"`
-	Authority string `json:"authority"`
+	From      string `json:"from"`
+	To        string `json:"to"`
 	Url       string `json:"url"`
 	Path      string `json:"path"`
 
@@ -26,43 +32,122 @@ type Entry struct {
 	Encoding   string `json:"encoding"`
 	Bytes      int64  `json:"bytes"`
 
-	Route          string `json:"route"`
-	RouteTo        string `json:"route-to"`
-	Threshold      int    `json:"threshold"`
-	ThresholdFlags string `json:"threshold-flags"`
+	Route      string  `json:"route"`
+	RouteTo    string  `json:"route-to"`
+	Timeout    int32   `json:"timeout"`
+	RateLimit  float64 `json:"rate-limit"`
+	RateBurst  int32   `json:"rate-burst"`
+	ReasonCode string  `json:"rc"`
 }
 
-type EntryV2 struct {
-	CustomerId     string
-	StartTime      time.Time
-	Duration       int64
-	DurationString string
-	Traffic        string
+func (Entry) Scan(columnNames []string, values []any) (log Entry, err error) {
+	for i, name := range columnNames {
+		switch name {
+		case StartTimeName:
+			log.StartTime = values[i].(time.Time)
+		case DurationName:
+			log.Duration = values[i].(int64)
+		case TrafficName:
+			log.Traffic = values[i].(string)
+		case CreatedTSName:
+			log.CreatedTS = values[i].(time.Time)
 
-	Region     string
-	Zone       string
-	SubZone    string
-	Service    string
-	InstanceId string
-	RouteName  string
+		case RegionName:
+			log.Region = values[i].(string)
+		case ZoneName:
+			log.Zone = values[i].(string)
+		case SubZoneName:
+			log.SubZone = values[i].(string)
+		case HostName:
+			log.Host = values[i].(string)
+		case InstanceIdName:
+			log.InstanceId = values[i].(string)
 
-	RequestId string
-	Url       string
-	Protocol  string
-	Method    string
-	Host      string
-	Path      string
+		case RequestIdName:
+			log.RequestId = values[i].(string)
+		case RelatesToName:
+			log.RelatesTo = values[i].(string)
+		case ProtocolName:
+			log.Protocol = values[i].(string)
+		case MethodName:
+			log.Method = values[i].(string)
+		case FromName:
+			log.From = values[i].(string)
+		case ToName:
+			log.To = values[i].(string)
+		case UrlName:
+			log.Url = values[i].(string)
+		case PathName:
+			log.Path = values[i].(string)
 
-	StatusCode  int32
-	BytesSent   int64
-	StatusFlags string
+		case StatusCodeName:
+			log.StatusCode = values[i].(int32)
+		case EncodingName:
+			log.Encoding = values[i].(string)
+		case BytesName:
+			log.Bytes = values[i].(int64)
 
-	Timeout        int32
-	RateLimit      float64
-	RateBurst      int32
-	Retry          bool
-	RetryRateLimit float64
-	RetryRateBurst int32
-	Failover       bool
-	Proxy          bool
+		case RouteName:
+			log.Route = values[i].(string)
+		case RouteToName:
+			log.RouteTo = values[i].(string)
+
+		case TimeoutName:
+			log.Timeout = values[i].(int32)
+		case RateLimitName:
+			log.RateLimit = values[i].(float64)
+		case RateBurstName:
+			log.RateBurst = values[i].(int32)
+		case ReasonCodeName:
+			log.ReasonCode = values[i].(string)
+		default:
+			err = errors.New(fmt.Sprintf("invalid field name: %v", name))
+			return
+		}
+	}
+	return
+}
+
+func (a Entry) Values() []any {
+	return []any{
+		a.StartTime,
+		a.Duration,
+		a.Traffic,
+		a.CreatedTS,
+
+		a.Region,
+		a.Zone,
+		a.SubZone,
+		a.Host,
+		a.InstanceId,
+
+		a.RequestId,
+		a.RelatesTo,
+		a.Protocol,
+		a.Method,
+		a.From,
+		a.To,
+		a.Url,
+		a.Path,
+
+		a.StatusCode,
+		a.Encoding,
+		a.Bytes,
+
+		a.Route,
+		a.RouteTo,
+		a.Timeout,
+		a.RateLimit,
+		a.RateBurst,
+		a.ReasonCode,
+	}
+}
+
+func (Entry) CreateInsertValues(events []Entry) [][]any {
+	var values [][]any
+
+	for _, e := range events {
+		values = append(values, e.Values())
+	}
+	return values
 }

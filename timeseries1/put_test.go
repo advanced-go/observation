@@ -1,30 +1,78 @@
 package timeseries1
 
 import (
+	"context"
 	"fmt"
-	"github.com/advanced-go/observation/module"
+	"github.com/advanced-go/postgresql/pgxsql"
 	"github.com/advanced-go/stdlib/core"
-	"github.com/advanced-go/stdlib/uri"
 	"net/http"
 	"time"
 )
 
 const (
-	putResp = "file://[cwd]/timeseries1test/put-resp-v1.txt"
+	updateRsc = "test"
+	updateSql = "UPDATE access_log"
+	status504 = "file://[cwd]/access1test/status-504.json"
 )
 
+var event = Entry{
+	StartTime:  time.Now().UTC().AddDate(1, 2, 0), //ate(2023, 1, 1, 14, 12, 15, 251097, time.UTC),
+	Duration:   450,
+	Traffic:    "egress",
+	Region:     "california",
+	Zone:       "san francisco",
+	SubZone:    "loma alta",
+	InstanceId: "12345",
+	Route:      "timeseries-egress",
+	RequestId:  "67890",
+	Url:        "urn:postgres:exec",
+	Protocol:   "urn",
+	Method:     "post",
+	Host:       "postgres",
+	Path:       "exec.",
+	StatusCode: 200,
+	Bytes:      -1,
+	ReasonCode: "RL",
+	Timeout:    500,
+	RateLimit:  100,
+	RateBurst:  25,
+}
+
+var event2 = Entry{
+	StartTime: time.Date(2023, 2, 20, 5, 45, 12, 123456, time.UTC),
+	//StartTime:      time.Now().UTC(),
+	Duration:   45,
+	Traffic:    "ingress",
+	Region:     "nevada",
+	Zone:       "las vegas",
+	SubZone:    "rfd #1",
+	InstanceId: "67890",
+	Route:      "timeseries-ingress",
+	RequestId:  "1234-5678-9012",
+	Url:        "urn:postgres:exec",
+	Protocol:   "urn",
+	Method:     "post",
+	Host:       "postgres",
+	Path:       "exec.",
+	StatusCode: 404,
+	Bytes:      -1,
+	ReasonCode: "TO",
+	Timeout:    300,
+	RateLimit:  45,
+	RateBurst:  105,
+}
+
+func testInsert(ctx context.Context, h http.Header, resource, template string, values [][]any, args ...any) (pgxsql.CommandTag, *core.Status) {
+	return pgxsql.CommandTag{}, core.NewStatus(http.StatusTeapot)
+}
+
 func ExamplePut() {
-	h := make(http.Header)
-	h.Add(uri.BuildPath(module.TimeseriesAuthority, module.TimeseriesAccessResourceV1, nil), putResp)
+	entries := []Entry{event, event2}
 
-	_, status := put[core.Output](nil, h, nil)
-	fmt.Printf("test: put(nil,h,nil) -> [status:%v]\n", status)
-
-	_, status = put[core.Output](nil, h, []Entry{{StartTime: time.Now().UTC()}})
-	fmt.Printf("test: put(nil,h,[]Entry) -> [status:%v]\n", status)
+	_, status := put[core.Output](nil, nil, entries, testInsert)
+	fmt.Printf("test: put(nil,nil,entries,testInsert) -> [status:%v]\n", status)
 
 	//Output:
-	//test: put(nil,h,nil) -> [status:OK]
-	//test: put(nil,h,[]Entry) -> [status:Timeout]
+	//test: put(nil,nil,entries,testInsert) -> [status:I'm A Teapot]
 
 }
