@@ -3,8 +3,8 @@ module github.com/advanced-go/observation
 go 1.21.4
 
 require (
-	github.com/advanced-go/postgresql v0.0.0-20240610170532-12ea552c79ed
-	github.com/advanced-go/stdlib v0.0.0-20240612123251-37786af26d4c
+	github.com/advanced-go/postgresql v0.0.0-20240612155653-abb42939a6a3
+	github.com/advanced-go/stdlib v0.0.0-20240612133659-188a62ee483e
 )
 
 require (
