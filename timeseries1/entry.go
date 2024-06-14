@@ -40,66 +40,66 @@ type Entry struct {
 	ReasonCode string  `json:"rc"`
 }
 
-func (Entry) Scan(columnNames []string, values []any) (log Entry, err error) {
+func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
 	for i, name := range columnNames {
 		switch name {
 		case StartTimeName:
-			log.StartTime = values[i].(time.Time)
+			e.StartTime = values[i].(time.Time)
 		case DurationName:
-			log.Duration = values[i].(int64)
+			e.Duration = values[i].(int64)
 		case TrafficName:
-			log.Traffic = values[i].(string)
+			e.Traffic = values[i].(string)
 		case CreatedTSName:
-			log.CreatedTS = values[i].(time.Time)
+			e.CreatedTS = values[i].(time.Time)
 
 		case RegionName:
-			log.Region = values[i].(string)
+			e.Region = values[i].(string)
 		case ZoneName:
-			log.Zone = values[i].(string)
+			e.Zone = values[i].(string)
 		case SubZoneName:
-			log.SubZone = values[i].(string)
+			e.SubZone = values[i].(string)
 		case HostName:
-			log.Host = values[i].(string)
+			e.Host = values[i].(string)
 		case InstanceIdName:
-			log.InstanceId = values[i].(string)
+			e.InstanceId = values[i].(string)
 
 		case RequestIdName:
-			log.RequestId = values[i].(string)
+			e.RequestId = values[i].(string)
 		case RelatesToName:
-			log.RelatesTo = values[i].(string)
+			e.RelatesTo = values[i].(string)
 		case ProtocolName:
-			log.Protocol = values[i].(string)
+			e.Protocol = values[i].(string)
 		case MethodName:
-			log.Method = values[i].(string)
+			e.Method = values[i].(string)
 		case FromName:
-			log.From = values[i].(string)
+			e.From = values[i].(string)
 		case ToName:
-			log.To = values[i].(string)
+			e.To = values[i].(string)
 		case UrlName:
-			log.Url = values[i].(string)
+			e.Url = values[i].(string)
 		case PathName:
-			log.Path = values[i].(string)
+			e.Path = values[i].(string)
 
 		case StatusCodeName:
-			log.StatusCode = values[i].(int32)
+			e.StatusCode = values[i].(int32)
 		case EncodingName:
-			log.Encoding = values[i].(string)
+			e.Encoding = values[i].(string)
 		case BytesName:
-			log.Bytes = values[i].(int64)
+			e.Bytes = values[i].(int64)
 
 		case RouteName:
-			log.Route = values[i].(string)
+			e.Route = values[i].(string)
 		case RouteToName:
-			log.RouteTo = values[i].(string)
+			e.RouteTo = values[i].(string)
 
 		case TimeoutName:
-			log.Timeout = values[i].(int32)
+			e.Timeout = values[i].(int32)
 		case RateLimitName:
-			log.RateLimit = values[i].(float64)
+			e.RateLimit = values[i].(float64)
 		case RateBurstName:
-			log.RateBurst = values[i].(int32)
+			e.RateBurst = values[i].(int32)
 		case ReasonCodeName:
-			log.ReasonCode = values[i].(string)
+			e.ReasonCode = values[i].(string)
 		default:
 			err = errors.New(fmt.Sprintf("invalid field name: %v", name))
 			return
