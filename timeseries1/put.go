@@ -9,10 +9,8 @@ import (
 	"net/http"
 )
 
-type insertFunc func(context.Context, http.Header, string, string, [][]any, ...any) (pgxsql.CommandTag, *core.Status)
-
 // put - function to Put a set of entries into a datastore
-func put[E core.ErrorHandler](ctx context.Context, h http.Header, body []Entry, insert insertFunc) (h2 http.Header, status *core.Status) {
+func put[E core.ErrorHandler](ctx context.Context, h http.Header, body []Entry, insert pgxsql.InsertFunc) (h2 http.Header, status *core.Status) {
 	var e E
 
 	if len(body) == 0 {
