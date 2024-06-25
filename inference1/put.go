@@ -8,6 +8,7 @@ import (
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/httpx"
 	"net/http"
+	"time"
 )
 
 func put[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.Header, resource, template string, body []T, insert pgxsql.InsertFuncT[T]) (h2 http.Header, status *core.Status) {
@@ -34,7 +35,10 @@ func testInsert[T pgxsql.Scanner[T]](_ context.Context, _ http.Header, _, _ stri
 	status = core.StatusOK()
 	switch p := any(&entries).(type) {
 	case *[]Entry:
-		entryData = append(entryData, *p...)
+		for _, e := range *p {
+			e.CreatedTS = time.Now().UTC()
+			entryData = append(entryData, e)
+		}
 	default:
 		status = core.NewStatusError(http.StatusBadRequest, core.NewInvalidBodyTypeError(entries))
 	}

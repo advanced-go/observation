@@ -15,7 +15,7 @@ const (
 	accessV1 = "file://[cwd]/access1test/access-v1.json"
 )
 
-func testQuery[T pgxsql.Scanner[T]](ctx context.Context, h http.Header, resource, template string, values map[string][]string, args ...any) ([]T, *core.Status) {
+func testQuery2[T pgxsql.Scanner[T]](ctx context.Context, h http.Header, resource, template string, values map[string][]string, args ...any) ([]T, *core.Status) {
 	buf, status := io.ReadFile(accessV1)
 	if !status.OK() {
 		fmt.Printf("test: io.ReadFile() -> [status:%v]\n", status)

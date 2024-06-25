@@ -1,11 +1,8 @@
 package access1
 
 import (
-	"context"
 	"fmt"
-	"github.com/advanced-go/postgresql/pgxsql"
 	"github.com/advanced-go/stdlib/core"
-	"net/http"
 	"time"
 )
 
@@ -62,17 +59,13 @@ var event2 = Entry{
 	RateBurst:  105,
 }
 
-func testInsert[T pgxsql.Scanner[T]](ctx context.Context, h http.Header, resource, template string, body []T, args ...any) (pgxsql.CommandTag, *core.Status) {
-	return pgxsql.CommandTag{}, core.NewStatus(http.StatusTeapot)
-}
-
 func ExamplePut() {
 	entries := []Entry{event, event2}
 
 	_, status := put[core.Output](nil, nil, entries, testInsert[Entry])
-	fmt.Printf("test: put(nil,nil,entries,testInsert) -> [status:%v]\n", status)
+	fmt.Printf("test: put(nil,nil,entries,testInsert) -> [status:%v] [entries:%v]\n", status, len(entryData))
 
 	//Output:
-	//test: put(nil,nil,entries,testInsert) -> [status:I'm A Teapot]
+	//test: put(nil,nil,entries,testInsert) -> [status:OK] [entries:4]
 
 }

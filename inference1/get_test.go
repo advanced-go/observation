@@ -17,6 +17,6 @@ func ExampleGet() {
 
 	//Output:
 	//test: get("region=*") -> [status:OK] [entries:2]
-	//test: Get("region=*&order=desc") -> [status:OK] [entries:[{us-west oregon  www.host1.com 2024-06-10 09:00:35 +0000 UTC agent host information processed} {us-west oregon  www.host2.com 2024-06-10 09:00:35 +0000 UTC agent host text processed}]]
+	//test: Get("region=*&order=desc") -> [status:OK] [entries:[{us-west oregon  www.host1.com 2024-06-10 09:00:35 +0000 UTC agent-id host information processed} {us-west oregon  www.host2.com 2024-06-10 09:00:35 +0000 UTC agent-id host text processed}]]
 
 }

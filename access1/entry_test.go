@@ -2,22 +2,11 @@ package access1
 
 import (
 	"fmt"
-	"github.com/advanced-go/stdlib/access"
 	"github.com/advanced-go/stdlib/json"
-	"time"
 )
 
-type accessLogV2 struct {
-	Duration string
-}
-
-var list = []Entry{
-	{time.Now().UTC(), 100, access.EgressTraffic, time.Now().UTC(), "us-west", "oregon", "dc1", "www.test-host.com", "123456", "req-id", "relate-to", "HTTP/1.1", "GET", "www.google.com", "", "https://www.google.com/search?q-golang", "/search", 200, "gzip", 12345, "google-search", "primary", 500, 98.5, 10, "RL"},
-	{time.Now().UTC(), 100, access.IngressTraffic, time.Now().UTC(), "us-west", "oregon", "dc1", "localhost:8081", "123456", "req-id", "relate-to", "HTTP/1.1", "GET", "github/advanced-go/search", "", "http://localhost:8081/advanced-go/search:google?q-golang", "/search", 200, "gzip", 12345, "search", "primary", 500, 100, 10, "TO"},
-}
-
 func ExampleEntry() {
-	buf, status := json.Marshal(list)
+	buf, status := json.Marshal(entryData)
 	if !status.OK() {
 		fmt.Printf("test: Entry{} -> [status:%v]\n", status)
 	} else {

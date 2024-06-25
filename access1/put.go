@@ -7,6 +7,7 @@ import (
 	"github.com/advanced-go/postgresql/pgxsql"
 	"github.com/advanced-go/stdlib/core"
 	"net/http"
+	"time"
 )
 
 // put - function to Put a set of entries into a datastore
@@ -18,7 +19,7 @@ func put[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 		return nil, status
 	}
 	if insert == nil {
-		insert = pgxsql.InsertT[T]
+		insert = testInsert[T] //pgxsql.InsertT[T]
 	}
 	if h != nil {
 		h.Set(core.XFrom, module.Authority)
@@ -28,6 +29,25 @@ func put[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 		e.Handle(status, core.RequestId(h))
 	}
 	return
+}
+
+func testInsert[T pgxsql.Scanner[T]](ctx context.Context, h http.Header, resource, template string, entries []T, args ...any) (tag pgxsql.CommandTag, status *core.Status) {
+	status = core.StatusOK()
+	switch p := any(&entries).(type) {
+	case *[]Entry:
+		for _, e := range *p {
+			e.CreatedTS = time.Now().UTC()
+			entryData = append(entryData, e)
+		}
+	default:
+		status = core.NewStatusError(http.StatusBadRequest, core.NewInvalidBodyTypeError(entries))
+	}
+	if status.OK() {
+		tag.RowsAffected = int64(len(entries))
+	}
+	return
+
+	return pgxsql.CommandTag{}, core.NewStatus(http.StatusTeapot)
 }
 
 /*

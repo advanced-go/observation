@@ -16,7 +16,7 @@ func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 		return nil, h2, core.StatusNotFound()
 	}
 	if query == nil {
-		query = pgxsql.QueryT[T]
+		query = testQuery[T] //pgxsql.QueryT[T]
 	}
 	if h != nil {
 		h.Set(core.XFrom, module.Authority)
@@ -28,6 +28,17 @@ func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 	}
 	if len(entries) == 0 {
 		status = core.NewStatus(http.StatusNotFound)
+	}
+	return
+}
+
+func testQuery[T pgxsql.Scanner[T]](_ context.Context, _ http.Header, _, _ string, _ map[string][]string, _ ...any) (entries []T, status *core.Status) {
+	status = core.StatusOK()
+	switch p := any(&entries).(type) {
+	case *[]Entry:
+		*p = append(*p, entryData...)
+	default:
+		status = core.NewStatusError(http.StatusBadRequest, core.NewInvalidBodyTypeError(entries))
 	}
 	return
 }

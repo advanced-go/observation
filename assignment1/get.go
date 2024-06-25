@@ -32,7 +32,7 @@ func testQuery[T pgxsql.Scanner[T]](_ context.Context, _ http.Header, _, _ strin
 	status = core.StatusOK()
 	switch p := any(&entries).(type) {
 	case *[]Entry:
-		*p = entryData
+		*p = append(*p, entryData...)
 	default:
 		status = core.NewStatusError(http.StatusBadRequest, core.NewInvalidBodyTypeError(entries))
 	}
