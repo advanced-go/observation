@@ -143,10 +143,10 @@ func (a Entry) Values() []any {
 	}
 }
 
-func (Entry) CreateInsertValues(events []Entry) [][]any {
+func (Entry) Rows(entries []Entry) [][]any {
 	var values [][]any
 
-	for _, e := range events {
+	for _, e := range entries {
 		values = append(values, e.Values())
 	}
 	return values

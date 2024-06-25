@@ -31,8 +31,8 @@ const (
 
 var (
 	entryData = []Entry{
-		{AgentId: "agent", Region: "us-west", Zone: "oregon", Host: "www.host1.com", RouteName: "host", Details: "information", Action: "processed", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
-		{AgentId: "agent", Region: "us-west", Zone: "oregon", Host: "www.host2.com", RouteName: "host", Details: "text", Action: "processed", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{Region: "us-west", Zone: "oregon", Host: "www.host1.com", AgentId: "agent-id", RouteName: "host", Details: "information", Action: "processed", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{Region: "us-west", Zone: "oregon", Host: "www.host2.com", AgentId: "agent-id", RouteName: "host", Details: "text", Action: "processed", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
 	}
 )
 

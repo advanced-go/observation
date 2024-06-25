@@ -10,7 +10,7 @@ import (
 )
 
 // put - function to Put a set of entries into a datastore
-func put[E core.ErrorHandler](ctx context.Context, h http.Header, body []Entry, insert pgxsql.InsertFunc) (h2 http.Header, status *core.Status) {
+func put[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.Header, body []T, insert pgxsql.InsertFuncT[T]) (h2 http.Header, status *core.Status) {
 	var e E
 
 	if len(body) == 0 {
@@ -18,12 +18,12 @@ func put[E core.ErrorHandler](ctx context.Context, h http.Header, body []Entry, 
 		return nil, status
 	}
 	if insert == nil {
-		insert = pgxsql.Insert
+		insert = pgxsql.InsertT[T]
 	}
 	if h != nil {
 		h.Set(core.XFrom, module.Authority)
 	}
-	_, status = insert(ctx, h, accessLogResource, accessLogInsert, body[0].CreateInsertValues(body))
+	_, status = insert(ctx, h, accessLogResource, accessLogInsert, body)
 	if !status.OK() {
 		e.Handle(status, core.RequestId(h))
 	}
