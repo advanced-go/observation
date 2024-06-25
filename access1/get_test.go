@@ -1,4 +1,4 @@
-package host
+package access1
 
 import (
 	"context"
@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	accessV1 = "file://[cwd]/hosttest/host-v1.json"
+	accessV1 = "file://[cwd]/access1test/access-v1.json"
 )
 
 func testQuery[T pgxsql.Scanner[T]](ctx context.Context, h http.Header, resource, template string, values map[string][]string, args ...any) ([]T, *core.Status) {

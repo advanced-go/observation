@@ -6,7 +6,9 @@ const (
 	Version               = "2.2.2"
 	Ver1                  = "v1"
 	Ver2                  = "v2"
-	ObservationTimeseries = "timeseries"
+	ObservationAccess     = "access"
+	ObservationInference  = "inference"
+	ObservationAssignment = "assignment"
 )
 
 // Configuration keys used on startup for map values

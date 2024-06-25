@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/advanced-go/observation/inference1"
 	"github.com/advanced-go/observation/module"
-	"github.com/advanced-go/observation/timeseries1"
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/httpx"
 	"github.com/advanced-go/stdlib/uri"
@@ -13,7 +13,7 @@ import (
 	"net/url"
 )
 
-func timeseriesExchange[E core.ErrorHandler](r *http.Request, p *uri.Parsed) (*http.Response, *core.Status) {
+func inferenceExchange[E core.ErrorHandler](r *http.Request, p *uri.Parsed) (*http.Response, *core.Status) {
 	h2 := make(http.Header)
 	h2.Add(httpx.ContentType, httpx.ContentTypeText)
 
@@ -27,22 +27,22 @@ func timeseriesExchange[E core.ErrorHandler](r *http.Request, p *uri.Parsed) (*h
 
 	switch r.Method {
 	case http.MethodGet:
-		return get[E](r.Context(), r.Header, r.URL, p.Version)
+		return inferenceGet[E](r.Context(), r.Header, r.URL, p.Version)
 	case http.MethodPut:
-		return put[E](r, p.Version)
+		return inferencePut[E](r, p.Version)
 	default:
 		status := core.NewStatusError(http.StatusBadRequest, errors.New(fmt.Sprintf("error invalid method: [%v]", r.Method)))
 		return httpx.NewResponse[E](status.HttpCode(), h2, status.Err)
 	}
 }
 
-func get[E core.ErrorHandler](ctx context.Context, h http.Header, url *url.URL, version string) (resp *http.Response, status *core.Status) {
+func inferenceGet[E core.ErrorHandler](ctx context.Context, h http.Header, url *url.URL, version string) (resp *http.Response, status *core.Status) {
 	var entries any
 	var h2 http.Header
 
 	switch version {
 	case module.Ver1, "":
-		entries, h2, status = timeseries1.Get(ctx, h, url.Query())
+		entries, h2, status = inference1.Get(ctx, h, url.Query())
 	default:
 		status = core.NewStatusError(http.StatusBadRequest, errors.New(fmt.Sprintf("invalid version: [%v]", h.Get(core.XVersion))))
 	}
@@ -58,12 +58,12 @@ func get[E core.ErrorHandler](ctx context.Context, h http.Header, url *url.URL, 
 
 }
 
-func put[E core.ErrorHandler](r *http.Request, version string) (resp *http.Response, status *core.Status) {
+func inferencePut[E core.ErrorHandler](r *http.Request, version string) (resp *http.Response, status *core.Status) {
 	var h2 http.Header
 
 	switch version {
 	case module.Ver1, "":
-		h2, status = timeseries1.Put(r, nil)
+		h2, status = inference1.Put(r, nil)
 	default:
 		status = core.NewStatusError(http.StatusBadRequest, errors.New(fmt.Sprintf("invalid version: [%v]", r.Header.Get(core.XVersion))))
 	}

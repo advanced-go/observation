@@ -1,4 +1,4 @@
-package timeseries1
+package inference1
 
 import (
 	"context"
@@ -10,13 +10,13 @@ import (
 )
 
 const (
-	PkgPath           = "github/advanced-go/observation/timeseries1"
-	accessLogResource = "access-log"
+	PkgPath           = "github/advanced-go/activity/inference"
+	inferenceResource = "inference"
 )
 
 // Get - resource GET
 func Get(ctx context.Context, h http.Header, values url.Values) (entries []Entry, h2 http.Header, status *core.Status) {
-	return get[core.Log, Entry](ctx, core.AddRequestId(h), values, nil)
+	return get[core.Log, Entry](ctx, core.AddRequestId(h), values, inferenceResource, "", nil)
 }
 
 // Put - resource PUT, with optional content override
@@ -33,5 +33,11 @@ func Put(r *http.Request, body []Entry) (http.Header, *core.Status) {
 		}
 		body = content
 	}
-	return put[core.Log](r.Context(), core.AddRequestId(r.Header), body, nil)
+	return put[core.Log](r.Context(), core.AddRequestId(r.Header), inferenceResource, "", body, nil)
+}
+
+// Insert - add entry
+func Insert(ctx context.Context, h http.Header, e Entry) *core.Status {
+	_, status := put[core.Log, Entry](ctx, core.AddRequestId(h), inferenceResource, "", []Entry{e}, nil)
+	return status
 }

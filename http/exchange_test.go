@@ -2,7 +2,6 @@ package http
 
 import (
 	"fmt"
-	"github.com/advanced-go/observation/timeseries1"
 	"github.com/advanced-go/stdlib/json"
 	"net/http"
 )
@@ -34,7 +33,7 @@ func ExampleExchange_Timeseries() {
 	if !status.OK() {
 		fmt.Printf("test: Exchange() -> [status:%v]\n", status)
 	} else {
-		entries, status1 := json.New[[]timeseries1.Entry](resp.Body, resp.Header)
+		entries, status1 := json.New[[]access1.Entry](resp.Body, resp.Header)
 		fmt.Printf("test: Exchange() -> [status:%v] [status-code:%v] [bytes:%v] [count%v]\n", status1, resp.StatusCode, resp.ContentLength, len(entries))
 	}
 

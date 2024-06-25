@@ -1,4 +1,4 @@
-package host
+package access1
 
 import (
 	"context"
@@ -9,9 +9,7 @@ import (
 	"net/url"
 )
 
-type queryFunc[T pgxsql.Scanner[T]] func(context.Context, http.Header, string, string, map[string][]string, ...any) ([]T, *core.Status)
-
-func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.Header, values url.Values, query queryFunc[T]) (entries []T, h2 http.Header, status *core.Status) {
+func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.Header, values url.Values, query pgxsql.QueryFuncT[T]) (entries []T, h2 http.Header, status *core.Status) {
 	var e E
 
 	if values == nil {
