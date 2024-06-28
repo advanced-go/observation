@@ -3,6 +3,7 @@ package inference1
 import (
 	"errors"
 	"fmt"
+	"github.com/advanced-go/observation/common"
 	"github.com/advanced-go/stdlib/core"
 	"net/url"
 	"time"
@@ -30,9 +31,10 @@ const (
 )
 
 var (
+	safeEntry = common.NewSafe()
 	entryData = []Entry{
-		{Region: "us-west", Zone: "oregon", Host: "www.host1.com", AgentId: "agent-id", RouteName: "host", Details: "information", Action: "processed", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
-		{Region: "us-west", Zone: "oregon", Host: "www.host2.com", AgentId: "agent-id", RouteName: "host", Details: "text", Action: "processed", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{Region: "us-west1", Zone: "a", Host: "www.host1.com", AgentId: "agent-id", RouteName: "host", Details: "information", Action: "processed", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{Region: "us-west1", Zone: "a", Host: "www.host2.com", AgentId: "agent-id", RouteName: "host", Details: "text", Action: "processed", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
 	}
 )
 

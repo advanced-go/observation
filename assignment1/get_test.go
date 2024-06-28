@@ -16,7 +16,7 @@ func ExampleGet_Entry() {
 	fmt.Printf("test: Get(\"%v\") -> [status:%v] [entries:%v]\n", q, status, entries)
 
 	//Output:
-	//test: Get("region=*") -> [status:OK] [entries:4]
-	//test: Get("region=*&order=desc") -> [status:OK] [entries:[{us-west-1 usw1-az1  www.host1.com 2024-06-10 09:00:35 +0000 UTC} {us-west-1 usw1-az2  www.host2.com 2024-06-10 09:00:35 +0000 UTC} {us-west-2 usw2-az3  www.host1.com 2024-06-10 09:00:35 +0000 UTC} {us-west-2 usw2-az4  www.host2.com 2024-06-10 09:00:35 +0000 UTC}]]
-	
+	//test: Get("region=*") -> [status:OK] [entries:5]
+	//test: Get("region=*&order=desc") -> [status:OK] [entries:[{us-west1 a  www.host1.com 2024-06-10 09:00:35 +0000 UTC} {us-west1 a  www.host2.com 2024-06-10 09:00:35 +0000 UTC} {us-central1 c  www.host1.com 2024-06-10 09:00:35 +0000 UTC} {us-central1 c  www.host2.com 2024-06-10 09:00:35 +0000 UTC} {us-central1 c  www.host3.com 2024-06-10 09:00:35 +0000 UTC}]]
+
 }

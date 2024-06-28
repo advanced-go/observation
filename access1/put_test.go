@@ -66,6 +66,6 @@ func ExamplePut() {
 	fmt.Printf("test: put(nil,nil,entries,testInsert) -> [status:%v] [entries:%v]\n", status, len(entryData))
 
 	//Output:
-	//test: put(nil,nil,entries,testInsert) -> [status:OK] [entries:4]
+	//test: put(nil,nil,entries,testInsert) -> [status:OK] [entries:6]
 
 }

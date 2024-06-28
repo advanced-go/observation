@@ -35,6 +35,6 @@ func ExampleGet() {
 	fmt.Printf("test: get() -> [status:%v] [entries:%v]\n", status, len(entries))
 
 	//Output:
-	//test: get() -> [status:OK] [entries:2]
+	//test: get() -> [status:OK] [entries:4]
 
 }

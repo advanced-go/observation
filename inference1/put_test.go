@@ -9,7 +9,7 @@ func ExamplePut() {
 	_, status := put[core.Output, Entry](nil, nil, inferenceResource, "", nil, nil)
 	fmt.Printf("test: put(nil,h,nil) -> [status:%v] [count:%v]\n", status, len(entryData))
 
-	_, status = put[core.Output, Entry](nil, nil, inferenceResource, "", []Entry{{Region: "us-east"}}, nil)
+	_, status = put[core.Output, Entry](nil, nil, inferenceResource, "", []Entry{{Region: "us-east1"}}, nil)
 	fmt.Printf("test: put(nil,h,[]Entry) -> [status:%v] [count:%v]\n", status, len(entryData))
 
 	//Output:

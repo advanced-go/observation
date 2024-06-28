@@ -35,6 +35,7 @@ func testInsert[T pgxsql.Scanner[T]](_ context.Context, _ http.Header, _, _ stri
 	status = core.StatusOK()
 	switch p := any(&entries).(type) {
 	case *[]Entry:
+		defer safeEntry.Lock()()
 		for _, e := range *p {
 			e.CreatedTS = time.Now().UTC()
 			entryData = append(entryData, e)

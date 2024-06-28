@@ -3,6 +3,7 @@ package access1
 import (
 	"errors"
 	"fmt"
+	"github.com/advanced-go/observation/common"
 	"github.com/advanced-go/stdlib/access"
 	"time"
 )
@@ -42,9 +43,12 @@ type Entry struct {
 }
 
 var (
+	safeEntry = common.NewSafe()
 	entryData = []Entry{
-		{time.Now().UTC(), 100, access.EgressTraffic, time.Now().UTC(), "us-west", "oregon", "dc1", "www.test-host.com", "123456", "req-id", "relate-to", "HTTP/1.1", "GET", "www.google.com", "", "https://www.google.com/search?q-golang", "/search", 200, "gzip", 12345, "google-search", "primary", 500, 98.5, 10, "RL"},
-		{time.Now().UTC(), 100, access.IngressTraffic, time.Now().UTC(), "us-west", "oregon", "dc1", "localhost:8081", "123456", "req-id", "relate-to", "HTTP/1.1", "GET", "github/advanced-go/search", "", "http://localhost:8081/advanced-go/search:google?q-golang", "/search", 200, "gzip", 12345, "search", "primary", 500, 100, 10, "TO"},
+		{Region: "us-west1", Zone: "a", Host: "www.host1.com", Duration: 100, Traffic: access.IngressTraffic, Route: "host", Timeout: 2000, RateLimit: 98.5, RateBurst: 10, ReasonCode: "RL", StartTime: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{Region: "us-west1", Zone: "a", Host: "www.host2.com", Duration: 85, Traffic: access.IngressTraffic, Route: "host", Timeout: 1500, RateLimit: 100, RateBurst: 10, ReasonCode: "", StartTime: time.Date(2024, 6, 10, 7, 120, 55, 0, time.UTC)},
+		{Region: "us-central1", Zone: "c", Host: "www.host1.com", Duration: 200, Traffic: access.IngressTraffic, Route: "host", Timeout: 300, RateLimit: 98.5, RateBurst: 10, ReasonCode: "RL", StartTime: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{Region: "us-central1", Zone: "c", Host: "www.host2.com", Duration: 750, Traffic: access.IngressTraffic, Route: "host", Timeout: 500, RateLimit: 100, RateBurst: 10, ReasonCode: "TO", StartTime: time.Date(2024, 6, 10, 7, 120, 55, 0, time.UTC)},
 	}
 )
 
