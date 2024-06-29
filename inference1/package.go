@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	PkgPath           = "github/advanced-go/activity/inference"
+	PkgPath           = "github/advanced-go/observation/inference"
 	inferenceResource = "inference"
 )
 
