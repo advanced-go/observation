@@ -2,20 +2,21 @@ package http
 
 import (
 	"github.com/advanced-go/observation/access1"
-	"github.com/advanced-go/observation/module"
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/httpx"
 	"net/http"
 )
 
 const (
-	entriesJson = "file:///c:/Users/markb/GitHub/observation/access1/access1test/access-v1.json"
+	entriesJson                = "file:///c:/Users/markb/GitHub/observation/access1/access1test/access-v1.json"
+	TimeseriesAuthority        = "github/advanced-go/timeseries"
+	TimeseriesAccessResourceV1 = "v1/access"
 )
 
 var (
 	content            = httpx.NewListContent[access1.Entry, struct{}, struct{}](false, matchEntry, nil, nil)
-	resource           = httpx.NewResource[access1.Entry, struct{}, struct{}](module.TimeseriesAccessResourceV1, content, nil)
-	authority, hostErr = httpx.NewHost(module.TimeseriesAuthority, mapResource, resource.Do)
+	resource           = httpx.NewResource[access1.Entry, struct{}, struct{}](TimeseriesAccessResourceV1, content, nil)
+	authority, hostErr = httpx.NewHost(TimeseriesAuthority, mapResource, resource.Do)
 )
 
 /*
@@ -55,6 +56,6 @@ func matchEntry(req *http.Request, item *access1.Entry) bool {
 }
 
 func mapResource(r *http.Request) string {
-	return module.TimeseriesAccessResourceV1
+	return TimeseriesAccessResourceV1
 
 }
