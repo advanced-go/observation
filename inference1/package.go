@@ -41,3 +41,11 @@ func Insert(ctx context.Context, h http.Header, e Entry) *core.Status {
 	_, status := put[core.Log, Entry](ctx, core.AddRequestId(h), inferenceResource, "", []Entry{e}, nil)
 	return status
 }
+
+func IngressQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
+	return nil, core.StatusOK()
+}
+
+func EgressQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
+	return nil, core.StatusOK()
+}
