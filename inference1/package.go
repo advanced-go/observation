@@ -36,16 +36,36 @@ func Put(r *http.Request, body []Entry) (http.Header, *core.Status) {
 	return put[core.Log](r.Context(), core.AddRequestId(r.Header), inferenceResource, "", body, nil)
 }
 
-// Insert - add entry
-func Insert(ctx context.Context, h http.Header, e Entry) *core.Status {
-	_, status := put[core.Log, Entry](ctx, core.AddRequestId(h), inferenceResource, "", []Entry{e}, nil)
-	return status
-}
-
+// IngressQuery - query ingress inference
 func IngressQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
 	return nil, core.StatusOK()
 }
 
+// IngressInsert - insert ingress inference
+func IngressInsert(ctx context.Context, h http.Header, e Entry) *core.Status {
+	_, status := put[core.Log, Entry](ctx, core.AddRequestId(h), inferenceResource, "", []Entry{e}, nil)
+	return status
+}
+
+// IngressInsertInterval - insert ingress interval inference
+func IngressInsertInterval(ctx context.Context, h http.Header, e Entry) *core.Status {
+	_, status := put[core.Log, Entry](ctx, core.AddRequestId(h), inferenceResource, "", []Entry{e}, nil)
+	return status
+}
+
+// EgressQuery - query egress inference
 func EgressQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
 	return nil, core.StatusOK()
+}
+
+// EgressInsert - insert egress inference
+func EgressInsert(ctx context.Context, h http.Header, e Entry) *core.Status {
+	_, status := put[core.Log, Entry](ctx, core.AddRequestId(h), inferenceResource, "", []Entry{e}, nil)
+	return status
+}
+
+// EgressInsertInterval - insert egress interval inference
+func EgressInsertInterval(ctx context.Context, h http.Header, e Entry) *core.Status {
+	_, status := put[core.Log, Entry](ctx, core.AddRequestId(h), inferenceResource, "", []Entry{e}, nil)
+	return status
 }
