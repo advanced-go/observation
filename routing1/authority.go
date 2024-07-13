@@ -39,6 +39,9 @@ type Authority struct {
 	Tag     string `json:"tag"`     // github/advanced-go/observation: provider/account/repository
 	Version string `json:"version"` // Semantic versioning: 2.1.0
 
+	Timeout      int  `json:"timeout"`
+	RateLimiting bool `json:"rate-limiting"`
+
 	// Origins are only configured for egress traffic, and is used to limit host selection.
 	// How to configure a primary??
 	Include core.Origin `json:"include"`
