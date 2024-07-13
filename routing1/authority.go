@@ -44,10 +44,20 @@ type Authority struct {
 	Timeout      int  `json:"timeout"`
 	RateLimiting bool `json:"rate-limiting"`
 
-	// Origins are only configured for egress traffic, and is used to limit host selection.
-	// How to configure a primary??
-	Include core.Origin `json:"include"`
-	Exclude core.Origin `json:"exclude"`
+	// Host and primary configuration are as follows:
+	// Primary - route to host unless upstream failure rate exceeds a threshold, then route to secondaries
+	//           based on filters. If not filters are configured then stay on primary. Once the rate falls
+	//           below the threshold, fail back to the host
+	// Default - route to host on startup, then rely on secondaries for all routing. Without secondary
+	//           filters, then remain on host.
+	//
+	Host    string `json:"host"`
+	Primary bool   `json:"primary"`
+
+	// Filters are only configured for egress traffic. Local is valid as is *. Blank does not include.
+	RegionFilter  string `json:"region-filter"`
+	ZoneFilter    string `json:"zone-filter"`
+	SubZoneFilter string `json:"sub-zone-filter"`
 }
 
 /*

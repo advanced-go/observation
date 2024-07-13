@@ -1,0 +1,13 @@
+
+
+// Host and primary configuration are as follows:
+	// Primary - route to host unless upstream failure rate exceeds a threshold, then route to secondaries
+	//           based on filters. If not filters are configured then stay on primary. Once the rate falls
+	//           below the threshold, fail back to the host
+	// Default - route to host on startup, then rely on secondaries for all routing. Without secondary
+	//           filters, then remain on host.
+	//
+
+When a new host starts up then the host should send the configuration.
+  1. Trigger a host startup message so that the existing Egress controller can update the
+     routing information.
