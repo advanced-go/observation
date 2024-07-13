@@ -16,14 +16,13 @@ const (
 	ZoneName      = "zone"
 	SubZoneName   = "sub_zone"
 	HostName      = "host"
-	RouteName     = "route"
 )
 
 var (
 	safeEntry = common.NewSafe()
 	entryData = []Entry{
-		{Region: "us-west1", Zone: "a", Host: "www.host1.com", Route: "host", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
-		{Region: "us-west1", Zone: "a", Host: "www.host2.com", Route: "host", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{Region: "us-west1", Zone: "a", Host: "www.host1.com", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{Region: "us-west1", Zone: "a", Host: "www.host2.com", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
 	}
 )
 
@@ -38,7 +37,6 @@ type Entry struct {
 	Zone      string    `json:"zone"`
 	SubZone   string    `json:"sub-zone"`
 	Host      string    `json:"host"`
-	Route     string    `json:"route"`
 	CreatedTS time.Time `json:"created-ts"`
 }
 
@@ -63,8 +61,6 @@ func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
 			e.SubZone = values[i].(string)
 		case HostName:
 			e.Host = values[i].(string)
-		case RouteName:
-			e.Route = values[i].(string)
 
 		default:
 			err = errors.New(fmt.Sprintf("invalid field name: %v", name))
@@ -82,7 +78,6 @@ func (e Entry) Values() []any {
 		e.Zone,
 		e.SubZone,
 		e.Host,
-		e.Route,
 	}
 }
 

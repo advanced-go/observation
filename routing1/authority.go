@@ -17,13 +17,14 @@ const (
 	VersionName     = "version"
 	TrafficName     = "traffic"
 	StatusName      = "status"
+	RouteName       = "route"
 )
 
 var (
 	safeAuthority = common.NewSafe()
 	authorityData = []Authority{
-		{EntryId: 1, AuthorityId: 1, Status: "active", Traffic: "egress", Tag: "github/advanced-go/observation", Version: "2.1.0", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
-		{EntryId: 1, AuthorityId: 2, Status: "active", Traffic: "egress", Tag: "github/advanced-go/observation", Version: "2.1.0", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{EntryId: 1, AuthorityId: 1, Status: "active", Route: "host", Traffic: "egress", Tag: "github/advanced-go/observation", Version: "2.1.0", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{EntryId: 1, AuthorityId: 2, Status: "active", Route: "host", Traffic: "egress", Tag: "github/advanced-go/observation", Version: "2.1.0", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
 	}
 )
 
@@ -36,6 +37,7 @@ type Authority struct {
 	CreatedTS   time.Time `json:"created-ts"`
 
 	Traffic string `json:"traffic"` // Ingress or egress
+	Route   string `json:"route"`
 	Tag     string `json:"tag"`     // github/advanced-go/observation: provider/account/repository
 	Version string `json:"version"` // Semantic versioning: 2.1.0
 
@@ -74,6 +76,8 @@ func (Authority) Scan(columnNames []string, values []any) (e Authority, err erro
 			e.Traffic = values[i].(string)
 		case VersionName:
 			e.Version = values[i].(string)
+		case RouteName:
+			e.Route = values[i].(string)
 
 		default:
 			err = errors.New(fmt.Sprintf("invalid field name: %v", name))
@@ -93,6 +97,7 @@ func (e Authority) Values() []any {
 		e.Traffic,
 		e.Tag,
 		e.Version,
+		e.Route,
 	}
 }
 
