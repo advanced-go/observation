@@ -12,10 +12,12 @@ import (
 const (
 	EntryIdName   = "entry_id"
 	CreatedTSName = "created_ts"
+	UpdatedTSName = "updated_ts"
 	RegionName    = "region"
 	ZoneName      = "zone"
 	SubZoneName   = "sub_zone"
 	HostName      = "host"
+	VersionName   = "version"
 )
 
 var (
@@ -37,7 +39,9 @@ type Entry struct {
 	Zone      string    `json:"zone"`
 	SubZone   string    `json:"sub-zone"`
 	Host      string    `json:"host"`
+	Version   string    `json:"version"` // Used to determine changes
 	CreatedTS time.Time `json:"created-ts"`
+	UpdatedTS time.Time `json:"updated-ts"`
 }
 
 func (e Entry) Origin() core.Origin {
@@ -61,6 +65,8 @@ func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
 			e.SubZone = values[i].(string)
 		case HostName:
 			e.Host = values[i].(string)
+		case VersionName:
+			e.Version = values[i].(string)
 
 		default:
 			err = errors.New(fmt.Sprintf("invalid field name: %v", name))
@@ -78,6 +84,7 @@ func (e Entry) Values() []any {
 		e.Zone,
 		e.SubZone,
 		e.Host,
+		e.Version,
 	}
 }
 

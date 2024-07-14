@@ -12,52 +12,41 @@ import (
 // TODO :
 
 const (
-	RouteIdName   = "route_id"
-	AuthorityName = "authority"
-	VersionName   = "version"
-	TrafficName   = "traffic"
-	StatusName    = "status"
-	RouteName     = "route"
+	RouteIdName      = "route_id"
+	TrafficName      = "traffic"
+	RouteName        = "name"
+	AuthorityName    = "authority"
+	TimeoutName      = "timeout"
+	RateLimitingName = "rate_limiting"
 )
 
 var (
 	safeRoute = common.NewSafe()
 	routeData = []Route{
-		{EntryId: 1, RouteId: 1, Status: "active", Name: "host", Traffic: "egress", Authority: "github/advanced-go/observation", Version: "2.1.0", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
-		{EntryId: 1, RouteId: 2, Status: "active", Name: "host", Traffic: "egress", Authority: "github/advanced-go/observation", Version: "2.1.0", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{EntryId: 1, RouteId: 1, Traffic: "egress", RouteName: "google-search", Authority: "github/advanced-go/observation", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{EntryId: 1, RouteId: 2, Traffic: "egress", RouteName: "google-search", Authority: "github/advanced-go/observation", CreatedTS: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
 	}
 )
 
 // Route - need to find some way to avoid duplicate processing, as host will start and stop due to
 // Kubernetes scaling
+// Updating is allowed as changes should be minimum
 type Route struct {
 	EntryId   int       `json:"entry-id"`
 	RouteId   int       `json:"route-id"`
-	Status    string    `json:"status"` // Active - inactive
 	CreatedTS time.Time `json:"created-ts"`
+	UpdatedTS time.Time `json:"created-ts"`
 
-	Traffic   string `json:"traffic"` // Ingress or egress
-	Name      string `json:"route"`
-	Authority string `json:"authority"` // github/advanced-go/observation: provider/account/repository
-	Version   string `json:"version"`   // Semantic versioning: 2.1.0
+	Traffic      string `json:"traffic"` // Ingress or egress
+	RouteName    string `json:"route"`
+	Authority    string `json:"authority"` // github/advanced-go/observation: provider/account/repository
+	Timeout      int    `json:"timeout"`
+	RateLimiting bool   `json:"rate-limiting"`
 
-	Timeout      int  `json:"timeout"`
-	RateLimiting bool `json:"rate-limiting"`
+	// Re-evalute if needed. Host can either be static or a preference for dynamic routing
+	//Static       string `json:"static"`
+	Host string `json:"host"` // Enables static routing.
 
-	// Host and primary configuration are as follows:
-	// Primary - route to host unless upstream failure rate exceeds a threshold, then route to secondaries
-	//           based on filters. If no filters are configured then stay on primary. Once the rate falls
-	//           below the threshold, fail back to the host
-	// Default - route to host on startup, then rely on secondaries for all routing. Without secondary
-	//           filters, remain on host.
-	//
-	Host    string `json:"host"`
-	Primary bool   `json:"primary"`
-
-	// Filters are only configured for egress traffic. Local is valid as is *. Blank does not include.
-	RegionFilter  string `json:"region-filter"`
-	ZoneFilter    string `json:"zone-filter"`
-	SubZoneFilter string `json:"sub-zone-filter"`
 }
 
 /*
@@ -75,19 +64,24 @@ func (Route) Scan(columnNames []string, values []any) (e Route, err error) {
 			e.EntryId = values[i].(int)
 		case RouteIdName:
 			e.EntryId = values[i].(int)
-		case StatusName:
-			e.Status = values[i].(string)
 		case CreatedTSName:
 			e.CreatedTS = values[i].(time.Time)
+		case UpdatedTSName:
+			e.CreatedTS = values[i].(time.Time)
 
-		case AuthorityName:
-			e.Authority = values[i].(string)
 		case TrafficName:
 			e.Traffic = values[i].(string)
-		case VersionName:
-			e.Version = values[i].(string)
 		case RouteName:
-			e.Name = values[i].(string)
+			e.RouteName = values[i].(string)
+		case AuthorityName:
+			e.Authority = values[i].(string)
+
+		case TimeoutName:
+			e.Timeout = values[i].(int)
+		case RateLimitingName:
+			e.RateLimiting = values[i].(bool)
+		case HostName:
+			e.Host = values[i].(string)
 
 		default:
 			err = errors.New(fmt.Sprintf("invalid field name: %v", name))
@@ -101,13 +95,15 @@ func (e Route) Values() []any {
 	return []any{
 		e.EntryId,
 		e.RouteId,
-		e.Status,
+		e.UpdatedTS,
 		e.CreatedTS,
 
 		e.Traffic,
+		e.RouteName,
 		e.Authority,
-		e.Version,
-		e.Name,
+		e.Timeout,
+		e.RateLimiting,
+		e.Host,
 	}
 }
 
