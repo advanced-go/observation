@@ -40,7 +40,7 @@ type Route struct {
 	Traffic      string `json:"traffic"` // Ingress or egress
 	RouteName    string `json:"route"`
 	Authority    string `json:"authority"` // github/advanced-go/observation: provider/account/repository
-	Timeout      int    `json:"timeout"`
+	Version      string `json:"version"`   // Only for ingress
 	RateLimiting bool   `json:"rate-limiting"`
 
 	// Re-evalute if needed. Host can either be static or a preference for dynamic routing
