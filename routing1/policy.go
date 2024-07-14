@@ -17,6 +17,10 @@ type Policy struct {
 	CreatedTS time.Time `json:"created-ts"`
 	AgentId   string    `json:"agent-id"` // Could be a user or agent id
 
+	// All policies need notifications
+	Email string
+	Slack string
+
 	// Current version
 	Version string `json:"version"` // Current Semantic version: 2.1.0
 
