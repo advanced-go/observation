@@ -42,6 +42,10 @@ type Entry struct {
 	Version   string    `json:"version"` // Used to determine changes
 	CreatedTS time.Time `json:"created-ts"`
 	UpdatedTS time.Time `json:"updated-ts"`
+
+	// Notifications
+	Email string
+	Slack string
 }
 
 func (e Entry) Origin() core.Origin {

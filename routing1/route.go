@@ -11,6 +11,8 @@ import (
 
 // TODO :
 // Timeouts are only configured and stored on the client
+// Need to configure one ingress route so that backbone knows how to route in ingress
+// this can be where the timeout is.
 
 const (
 	RouteIdName          = "route_id"
@@ -19,7 +21,7 @@ const (
 	AuthorityVersionName = "authority_version"
 	RateLimitingName     = "rate_limiting"
 	TrafficName          = "traffic"
-	StaticRoutingName    = "static_routing"
+	//StaticRoutingName    = "static_routing"
 )
 
 var (
@@ -46,11 +48,8 @@ type Route struct {
 	AuthorityVersion string `json:"version"`
 
 	// Egress only
-	RateLimiting  bool `json:"rate-limiting"`
-	StaticRouting bool `json:"static-routing"`
-	// Re-evalute if needed. Host can either be static or a preference for dynamic routing
-	//Static       string `json:"static"`
-	//Host string `json:"host"` // Static routing for authority based. Host based routing is all local.
+	RateLimiting bool   `json:"rate-limiting"`
+	Host         string `json:"host"` // Primary host.
 
 }
 
@@ -87,8 +86,8 @@ func (Route) Scan(columnNames []string, values []any) (e Route, err error) {
 
 		case RateLimitingName:
 			e.RateLimiting = values[i].(bool)
-		case StaticRoutingName:
-			e.StaticRouting = values[i].(bool)
+		case HostName:
+			e.Host = values[i].(string)
 
 		default:
 			err = errors.New(fmt.Sprintf("invalid field name: %v", name))
@@ -109,7 +108,7 @@ func (e Route) Values() []any {
 		e.RouteName,
 		e.Authority,
 		e.RateLimiting,
-		e.StaticRouting,
+		e.Host,
 	}
 }
 
