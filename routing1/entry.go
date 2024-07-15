@@ -32,7 +32,7 @@ func lastEntry() Entry {
 	return entryData[len(entryData)-1]
 }
 
-// Entry - host
+// Entry - host, utilize semantic versioning
 type Entry struct {
 	EntryId   int       `json:"entry-id"`
 	Region    string    `json:"region"`

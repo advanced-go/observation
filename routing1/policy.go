@@ -14,6 +14,7 @@ type Policy struct {
 	Host      string    `json:"host"`
 	RouteName string    `json:"route"`
 	PolicyId  int       `json:"policy-id"`
+	Version   string    `json:"version"` // Current Semantic version: 2.1.0
 	CreatedTS time.Time `json:"created-ts"`
 	AgentId   string    `json:"agent-id"` // Could be a user or agent id
 
@@ -22,7 +23,7 @@ type Policy struct {
 	Slack string
 
 	// Current version
-	Version string `json:"version"` // Current Semantic version: 2.1.0
+	AuthorityVersion string `json:"auth-version"` // Current Semantic version: 2.1.0
 
 	// Templates for host selection, "local" is valid as is "*". Blank does not include.
 	RegionT  string `json:"region-t"`
