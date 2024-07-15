@@ -40,17 +40,14 @@ type Route struct {
 	CreatedTS time.Time `json:"created-ts"`
 	UpdatedTS time.Time `json:"updated-ts"`
 
-	Traffic   string `json:"traffic"` // Ingress, egress
-	RouteName string `json:"route"`
-	Authority string `json:"authority"` // github/advanced-go/observation: provider/account/repository
+	Traffic      string `json:"traffic"` // Ingress, egress
+	RouteName    string `json:"route"`
+	Authority    string `json:"authority"` // github/advanced-go/observation: provider/account/repository
+	RateLimiting bool   `json:"rate-limiting"`
+	Host         string `json:"host"`
 
 	// Ingress only
 	AuthorityVersion string `json:"version"`
-
-	// Egress only
-	RateLimiting bool   `json:"rate-limiting"`
-	Host         string `json:"host"` // Primary host.
-
 }
 
 /*
