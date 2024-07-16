@@ -1,4 +1,29 @@
 
+New routing architecture: dynamic authority based routing.
+
+Can everything be automated and in the cloud?
+
+How to determine when and if there is a new version?
+
+What kinds of data?
+
+1. Ingress host route
+2. Ingress authorities with a definition of Primary or Secondary. So routing can default to the
+   primary authority.
+
+3. Egress routes
+4. Egress authorities
+3. Egress routing policy
+
+
+
+
+
+
+
+
+
+
 
 // Host and primary configuration are as follows:
 	// Primary - route to host unless upstream failure rate exceeds a threshold, then route to secondaries
