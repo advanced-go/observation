@@ -1,32 +1,72 @@
 [
   {
-    "Desc":"client: [match] cloud: []",
-    "Client":{
-      "Match":{
-        "Path":"/test/search?q=golang",
-        "Template":"{path]",
-        "Authority":"https://www.google.com",
-        "Route":"google-search"
+    "desc":"client: [match] cloud: []",
+    "client":{
+      "match":{
+        "path":"/test/search?q=golang",
+        "template":"{path]",
+        "authority":"https://www.google.com",
+        "route":"google-search"
       },
-      "Timeout":0
+      "timeout":0
     },
-    "Cloud":{
-      "RateLimiting":false
+    "cloud":{
+      "rate-limiting":false
     }
   },
   {
-    "Desc":"client: [match,timeout] cloud: [rate-limiting]",
-    "Client": {
-      "Match": {
-        "Path": "/test/search?q=golang",
-        "Template": "{path}",
-        "Authority": "https://www/google.com",
-        "Route": "google-search"
+    "desc":"client: [match,timeout] cloud: [rate-limiting]",
+    "client": {
+      "match": {
+        "path": "/test/search?q=golang",
+        "template": "{path}",
+        "authority": "https://www.google.com",
+        "route": "google-search"
       },
-      "Timeout": 3000
+      "timeout": 3000
     },
-    "Cloud":{
-      "RateLimiting":true
+    "cloud":{
+      "rate-limiting":true
+    }
+  },
+  {
+    "desc":"client: [match,timeout] cloud: [rate-limiting,failover]",
+    "client":{
+      "match":{
+        "path":"/test/search?q=golang",
+        "template":"{path}",
+        "authority":"https://www.google.com",
+        "route":"google-search"
+      },
+      "timeout":3000
+    },
+    "cloud":{
+      "rate-limiting":true,
+      "region-t":"us-central1",
+      "zone-t":"a",
+      "sub-zone-t":"",
+      "host-t":"google.com"
+    }
+  },
+  {
+    "desc": "client: [match,timeout] cloud: [rate-limiting,failover,dynamic routing]",
+    "client": {
+      "match": {
+        "path": "/test/search?q=golang",
+        "template": "{path}",
+        "authority": "https://www.google.com",
+        "route": "google-search"
+      },
+      "timeout": 3000
+    },
+    "cloud": {
+      "rate-limiting": true,
+      "region-t": "us-central1",
+      "zone-t": "a",
+      "sub-zone-t": "",
+      "host-t": "google.com",
+      "authority": "github/advanced-go/observation",
+      "authority-version": "2.3.*"
     }
   }
 ]

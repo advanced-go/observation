@@ -1,19 +1,25 @@
 package routing1
 
 type Matcher struct {
-	Path      string
-	Template  string
-	Authority string
-	Route     string
+	Path      string `json:"path"`
+	Template  string `json:"template"`
+	Authority string `json:"authority"`
+	Route     string `json:"route"`
 }
 
 type Client struct {
-	Match   Matcher
-	Timeout int
+	Match   Matcher `json:"match"`
+	Timeout int     `json:"timeout"`
 }
 
 type Cloud struct {
-	RateLimiting bool
+	RateLimiting     bool   `json:"rate-limiting"`
+	RegionT          string `json:"region-t"`
+	ZoneT            string `json:"zone-t"`
+	SubZoneT         string `json:"sub-zone-t"`
+	HostT            string `json:"host-t"`
+	Authority        string `json:"authority"` // github/advanced-go/observation: provider/account/repository
+	AuthorityVersion string `json:"authority-version"`
 }
 
 type Config struct {
@@ -22,7 +28,7 @@ type Config struct {
 }
 
 type Case struct {
-	Desc   string
-	Client Client
-	Cloud  Cloud
+	Desc   string `json:"desc"`
+	Client Client `json:"client"`
+	Cloud  Cloud  `json:"cloud"`
 }
