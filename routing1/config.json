@@ -49,7 +49,7 @@
     }
   },
   {
-    "desc": "client: [match,timeout] cloud: [rate-limiting,failover,dynamic routing]",
+    "desc": "client: [match,timeout] cloud: [rate-limiting,failover,authority routing]",
     "client": {
       "match": {
         "path": "/test/search?q=golang",

@@ -27,8 +27,8 @@ type Control struct {
 	Slack string
 }
 
-// Changeset - really is the latest version table
-type Changeset struct {
+// Changeset1 - really is the latest version table
+type Changeset1 struct {
 	EntryId   int
 	VersionId string
 
