@@ -1,0 +1,32 @@
+[
+  {
+    "Desc":"client: [match] cloud: []",
+    "Client":{
+      "Match":{
+        "Path":"/test/search?q=golang",
+        "Template":"{path]",
+        "Authority":"https://www.google.com",
+        "Route":"google-search"
+      },
+      "Timeout":0
+    },
+    "Cloud":{
+      "RateLimiting":false
+    }
+  },
+  {
+    "Desc":"client: [match,timeout] cloud: [rate-limiting]",
+    "Client": {
+      "Match": {
+        "Path": "/test/search?q=golang",
+        "Template": "{path}",
+        "Authority": "https://www/google.com",
+        "Route": "google-search"
+      },
+      "Timeout": 3000
+    },
+    "Cloud":{
+      "RateLimiting":true
+    }
+  }
+]

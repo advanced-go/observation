@@ -16,7 +16,6 @@ import "time"
 // Access - IngressAgent
 // Update - User Changeset
 // Optional - Only used to disable rate limiting.
-/*
 type IngressRoute struct {
 	EntryId   int       `json:"entry-id"`   // How to refer to the main entry
 	VersionId string    `json:"version-id"` // How to version this artifact
@@ -26,9 +25,6 @@ type IngressRoute struct {
 	// Used by IngressAgent
 	RateLimiting bool `json:"rate-limiting"`
 }
-
-
-*/
 
 // IngressAuthority - ingress authorities
 // Cardinality - n

@@ -4,7 +4,11 @@ import "time"
 
 // Issues, questions, and decisions.
 // Where does routing matching go? Client or Cloud?
-// Can static configurations go on the client??
+// Can static configurations go on the client?? YES
+// On startup, the default host names need to be downloaded to client and a notification needs to be
+// sent to the appropriate Case officer to configure the Egress agents.
+//  - What if agent is in a dynamic routing change? Is there any state that should be saved??
+//  - What if agent is in a failover state? Should be OK to restart. State can be lost.
 
 // EgressRoute -
 // Cardinality - n
@@ -17,7 +21,6 @@ type EgressRoute struct {
 	CreatedTS time.Time `json:"created-ts"`
 	AgentId   string    `json:"agent-id"` // Auditing
 
-	// Used by EgressAgent
 	RateLimiting bool `json:"rate-limiting"`
 
 	// Need some cost metrics to determine when to route to a secondary?
@@ -38,6 +41,7 @@ type EgressRoute struct {
 	SubZoneT string `json:"sub-zone-t"`
 }
 
+/*
 // EgressRoutePolicy - provides static and dynamic routing configuration + processing for egress routing
 // These are always inserted with a date. Never updated
 type EgressRoutePolicy struct {
@@ -64,3 +68,6 @@ type EgressRoutePolicy struct {
 	ZoneT    string `json:"zone-t"`
 	SubZoneT string `json:"sub-zone-t"`
 }
+
+
+*/

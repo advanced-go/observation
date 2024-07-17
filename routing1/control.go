@@ -27,12 +27,14 @@ type Control struct {
 	Slack string
 }
 
+// Changeset - really is the latest version table
 type Changeset struct {
 	EntryId   int
 	VersionId string
 
 	IngressRouteVersion     string
 	IngressAuthorityVersion string
+	EgressRouteVersion      string
 }
 
 // RateLimiting - rate limiting by Route
