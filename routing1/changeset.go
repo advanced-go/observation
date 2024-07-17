@@ -1,5 +1,7 @@
 package routing1
 
+import "github.com/advanced-go/stdlib/core"
+
 type DependencyUpdateChange struct {
 	Enable bool `json:"enable"`
 }
@@ -50,6 +52,7 @@ type EgressChangeset struct {
 
 type Changeset struct {
 	Version          string                    `json:"version"`
+	Origin           core.Origin               `json:"origin"`
 	DependencyUpdate DependencyUpdateChangeset `json:"dependency-update-changeset"`
 	Authority        AuthorityChangeset        `json:"authority-changeset"`
 	Ingress          IngressChangeset          `json:"ingress-changeset"`
