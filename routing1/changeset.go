@@ -1,5 +1,13 @@
 package routing1
 
+type DependencyUpdateChange struct {
+	Enable bool `json:"enable"`
+}
+
+type DependencyUpdateChangeset struct {
+	Update []DependencyUpdateChange `json:"update"`
+}
+
 type AuthorityChange struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
@@ -41,8 +49,9 @@ type EgressChangeset struct {
 }
 
 type Changeset struct {
-	Version   string             `json:"version"`
-	Authority AuthorityChangeset `json:"authority-changeset"`
-	Ingress   IngressChangeset   `json:"ingress-changeset"`
-	Egress    EgressChangeset    `json:"egress-changeset"`
+	Version          string                    `json:"version"`
+	DependencyUpdate DependencyUpdateChangeset `json:"dependency-update-changeset"`
+	Authority        AuthorityChangeset        `json:"authority-changeset"`
+	Ingress          IngressChangeset          `json:"ingress-changeset"`
+	Egress           EgressChangeset           `json:"egress-changeset"`
 }

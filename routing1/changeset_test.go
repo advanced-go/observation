@@ -7,6 +7,13 @@ import (
 
 var (
 	set = Changeset{
+		DependencyUpdate: DependencyUpdateChangeset{
+			Update: []DependencyUpdateChange{
+				{
+					Enable: false,
+				},
+			},
+		},
 		Authority: AuthorityChangeset{
 			Insert: []AuthorityChange{
 				{
