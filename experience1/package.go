@@ -17,6 +17,16 @@ func Get(ctx context.Context, h http.Header, values url.Values) (entries []Entry
 	return []Entry{}, core.StatusOK()
 }
 
+// EgressQuery - query egress inference
+func EgressQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
+	return nil, core.StatusOK()
+}
+
+// IngressQuery - query ingress inference
+func IngressQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
+	return nil, core.StatusOK()
+}
+
 /*
 // Put - resource PUT, with optional content override
 func Put(r *http.Request, body []Entry) (http.Header, *core.Status) {
@@ -35,10 +45,7 @@ func Put(r *http.Request, body []Entry) (http.Header, *core.Status) {
 	return put[core.Log](r.Context(), core.AddRequestId(r.Header), inferenceResource, "", body, nil)
 }
 
-// IngressQuery - query ingress inference
-func IngressQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
-	return nil, core.StatusOK()
-}
+
 
 // IngressInsert - insert ingress inference
 func IngressInsert(ctx context.Context, h http.Header, e Entry) *core.Status {
@@ -52,10 +59,6 @@ func IngressInsertInterval(ctx context.Context, h http.Header, e Entry) *core.St
 	return status
 }
 
-// EgressQuery - query egress inference
-func EgressQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
-	return nil, core.StatusOK()
-}
 
 // EgressInsert - insert egress inference
 func EgressInsert(ctx context.Context, h http.Header, e Entry) *core.Status {
