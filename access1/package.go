@@ -43,3 +43,7 @@ func IngressQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Statu
 func EgressQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
 	return nil, core.StatusOK()
 }
+
+func EgressRoutingQuery(ctx context.Context, origin core.Origin) ([]Routing, *core.Status) {
+	return nil, core.StatusOK()
+}
