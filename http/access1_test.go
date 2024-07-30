@@ -1,21 +1,21 @@
 package http
 
 import (
-	"github.com/advanced-go/observation/access1"
+	"github.com/advanced-go/observation/timeseries1"
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/httpx"
 	"net/http"
 )
 
 const (
-	entriesJson                = "file:///c:/Users/markb/GitHub/observation/access1/access1test/access-v1.json"
+	entriesJson                = "file:///c:/Users/markb/GitHub/observation/timeseries1/timeseries1test/access-v1.json"
 	TimeseriesAuthority        = "github/advanced-go/timeseries"
 	TimeseriesAccessResourceV1 = "v1/access"
 )
 
 var (
-	content            = httpx.NewListContent[access1.Entry, struct{}, struct{}](false, matchEntry, nil, nil)
-	resource           = httpx.NewResource[access1.Entry, struct{}, struct{}](TimeseriesAccessResourceV1, content, nil)
+	content            = httpx.NewListContent[timeseries1.Entry, struct{}, struct{}](false, matchEntry, nil, nil)
+	resource           = httpx.NewResource[timeseries1.Entry, struct{}, struct{}](TimeseriesAccessResourceV1, content, nil)
 	authority, hostErr = httpx.NewHost(TimeseriesAuthority, mapResource, resource.Do)
 )
 
@@ -25,7 +25,7 @@ func initializeDocuments() {
 	if hostErr != nil {
 		fmt.Printf("error: new resource %v", hostErr)
 	}
-	//entries, status := json.New[[]access1.Entry](entriesJson, nil)
+	//entries, status := json.New[[]timeseries1.Entry](entriesJson, nil)
 	//if !status.OK() {
 	//	fmt.Printf("initializeDocuments.New() -> [status:%v]\n", status)
 	//	return
@@ -46,7 +46,7 @@ func initializeDocuments() {
 
 */
 
-func matchEntry(req *http.Request, item *access1.Entry) bool {
+func matchEntry(req *http.Request, item *timeseries1.Entry) bool {
 	filter := core.NewOrigin(req.URL.Query())
 	target := core.Origin{Region: item.Region, Zone: item.Zone, SubZone: item.SubZone, Host: item.Host}
 	if core.OriginMatch(target, filter) {

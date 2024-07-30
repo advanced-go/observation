@@ -1,4 +1,4 @@
-package access1
+package timeseries1
 
 import (
 	"fmt"

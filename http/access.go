@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/advanced-go/observation/access1"
 	"github.com/advanced-go/observation/module"
+	"github.com/advanced-go/observation/timeseries1"
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/httpx"
 	"github.com/advanced-go/stdlib/uri"
@@ -42,7 +42,7 @@ func accessGet[E core.ErrorHandler](ctx context.Context, h http.Header, url *url
 
 	switch version {
 	case module.Ver1, "":
-		entries, h2, status = access1.Get(ctx, h, url.Query())
+		entries, h2, status = timeseries1.Get(ctx, h, url.Query())
 	default:
 		status = core.NewStatusError(http.StatusBadRequest, errors.New(fmt.Sprintf("invalid version: [%v]", h.Get(core.XVersion))))
 	}
@@ -63,7 +63,7 @@ func accessPut[E core.ErrorHandler](r *http.Request, version string) (resp *http
 
 	switch version {
 	case module.Ver1, "":
-		h2, status = access1.Put(r, nil)
+		h2, status = timeseries1.Put(r, nil)
 	default:
 		status = core.NewStatusError(http.StatusBadRequest, errors.New(fmt.Sprintf("invalid version: [%v]", r.Header.Get(core.XVersion))))
 	}

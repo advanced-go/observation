@@ -1,4 +1,4 @@
-package access1
+package timeseries1
 
 const (
 	//accessLogSelect = "SELECT * FROM access_log {where} order by start_time limit 2"

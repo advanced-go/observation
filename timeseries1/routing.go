@@ -1,4 +1,4 @@
-package access1
+package timeseries1
 
 type Routing struct {
 	Url     string `json:"url"`

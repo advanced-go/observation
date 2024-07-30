@@ -1,4 +1,4 @@
-package access1
+package timeseries1
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 const (
 	updateRsc = "test"
 	updateSql = "UPDATE access_log"
-	status504 = "file://[cwd]/access1test/status-504.json"
+	status504 = "file://[cwd]/timeseries1test/status-504.json"
 )
 
 var event = Entry{

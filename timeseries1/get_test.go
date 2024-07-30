@@ -1,4 +1,4 @@
-package access1
+package timeseries1
 
 import (
 	"context"
@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	accessV1 = "file://[cwd]/access1test/access-v1.json"
+	accessV1 = "file://[cwd]/timeseries1test/access-v1.json"
 )
 
 func testQuery2[T pgxsql.Scanner[T]](ctx context.Context, h http.Header, resource, template string, values map[string][]string, args ...any) ([]T, *core.Status) {
