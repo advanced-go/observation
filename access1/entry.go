@@ -19,6 +19,7 @@ type Entry struct {
 
 	RequestId string `json:"request-id"`
 	RelatesTo string `json:"relates-to"`
+	Location  string `json:"location"`
 	Protocol  string `json:"proto"`
 	Method    string `json:"method"`
 	From      string `json:"from"`
@@ -30,10 +31,11 @@ type Entry struct {
 	Encoding   string `json:"encoding"`
 	Bytes      int64  `json:"bytes"`
 
-	Route      string  `json:"route"`
-	RouteTo    string  `json:"route-to"`
-	Timeout    int32   `json:"timeout"`
-	RateLimit  float64 `json:"rate-limit"`
-	RateBurst  int32   `json:"rate-burst"`
-	ReasonCode string  `json:"rc"`
+	Route        string  `json:"route"`
+	RouteTo      string  `json:"route-to"`
+	RoutePercent int     `json:"route-percent"`
+	Timeout      int32   `json:"timeout"`
+	RateLimit    float64 `json:"rate-limit"`
+	RateBurst    int32   `json:"rate-burst"`
+	ReasonCode   string  `json:"rc"`
 }

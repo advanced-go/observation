@@ -10,22 +10,22 @@ const (
 	accessLogResource = "access-log"
 )
 
-func IngressRateLimitingQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
-	return nil, core.StatusOK()
+func IngressRateLimitingQuery(ctx context.Context, origin core.Origin) (Entry, *core.Status) {
+	return Entry{}, core.StatusOK()
 }
 
-func IngressRedirectQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
-	return nil, core.StatusOK()
+func IngressRedirectQuery(ctx context.Context, origin core.Origin) (Entry, *core.Status) {
+	return Entry{}, core.StatusOK()
 }
 
-func EgressRateLimitingQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
-	return nil, core.StatusOK()
+func EgressRateLimitingQuery(ctx context.Context, origin core.Origin) (Entry, *core.Status) {
+	return Entry{}, core.StatusOK()
 }
 
-func EgressRedirectQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
-	return nil, core.StatusOK()
+func EgressRedirectQuery(ctx context.Context, origin core.Origin) (Entry, *core.Status) {
+	return Entry{}, core.StatusOK()
 }
 
-func EgressFailoverQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
-	return nil, core.StatusOK()
+func EgressFailoverQuery(ctx context.Context, origin core.Origin) (Entry, *core.Status) {
+	return Entry{}, core.StatusOK()
 }
