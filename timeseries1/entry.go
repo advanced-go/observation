@@ -23,32 +23,36 @@ type Entry struct {
 
 	RequestId string `json:"request-id"`
 	RelatesTo string `json:"relates-to"`
+	Location  string `json:"location"`
 	Protocol  string `json:"proto"`
 	Method    string `json:"method"`
 	From      string `json:"from"`
 	To        string `json:"to"`
-	Url       string `json:"url"`
+	Uri       string `json:"uri"`
 	Path      string `json:"path"`
+	Query     string `json:"query"`
 
 	StatusCode int32  `json:"status-code"`
 	Encoding   string `json:"encoding"`
 	Bytes      int64  `json:"bytes"`
 
-	Route      string  `json:"route"`
-	RouteTo    string  `json:"route-to"`
-	Timeout    int32   `json:"timeout"`
-	RateLimit  float64 `json:"rate-limit"`
-	RateBurst  int32   `json:"rate-burst"`
-	ReasonCode string  `json:"rc"`
+	Route          string  `json:"route"`
+	RouteTo        string  `json:"route-to"`
+	RoutePercent   int     `json:"route-percent"`
+	RouteCode      string  `json:"rc"`
+	Timeout        int32   `json:"timeout"`
+	RateLimit      float64 `json:"rate-limit"`
+	RateBurst      int32   `json:"rate-burst"`
+	ControllerCode string  `json:"cc"`
 }
 
 var (
 	safeEntry = common.NewSafe()
 	entryData = []Entry{
-		{Region: "us-west1", Zone: "a", Host: "www.host1.com", Duration: 100, Traffic: access.IngressTraffic, Route: "host", Timeout: 2000, RateLimit: 98.5, RateBurst: 10, ReasonCode: "RL", StartTime: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
-		{Region: "us-west1", Zone: "a", Host: "www.host2.com", Duration: 85, Traffic: access.IngressTraffic, Route: "host", Timeout: 1500, RateLimit: 100, RateBurst: 10, ReasonCode: "", StartTime: time.Date(2024, 6, 10, 7, 120, 55, 0, time.UTC)},
-		{Region: "us-central1", Zone: "c", Host: "www.host1.com", Duration: 200, Traffic: access.IngressTraffic, Route: "host", Timeout: 300, RateLimit: 98.5, RateBurst: 10, ReasonCode: "RL", StartTime: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
-		{Region: "us-central1", Zone: "c", Host: "www.host2.com", Duration: 750, Traffic: access.IngressTraffic, Route: "host", Timeout: 500, RateLimit: 100, RateBurst: 10, ReasonCode: "TO", StartTime: time.Date(2024, 6, 10, 7, 120, 55, 0, time.UTC)},
+		{Region: "us-west1", Zone: "a", Host: "www.host1.com", Duration: 100, Traffic: access.IngressTraffic, Route: "host", Timeout: 2000, RateLimit: 98.5, RateBurst: 10, ControllerCode: "RL", StartTime: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{Region: "us-west1", Zone: "a", Host: "www.host2.com", Duration: 85, Traffic: access.IngressTraffic, Route: "host", Timeout: 1500, RateLimit: 100, RateBurst: 10, ControllerCode: "", StartTime: time.Date(2024, 6, 10, 7, 120, 55, 0, time.UTC)},
+		{Region: "us-central1", Zone: "c", Host: "www.host1.com", Duration: 200, Traffic: access.IngressTraffic, Route: "host", Timeout: 300, RateLimit: 98.5, RateBurst: 10, ControllerCode: "RL", StartTime: time.Date(2024, 6, 10, 7, 120, 35, 0, time.UTC)},
+		{Region: "us-central1", Zone: "c", Host: "www.host2.com", Duration: 750, Traffic: access.IngressTraffic, Route: "host", Timeout: 500, RateLimit: 100, RateBurst: 10, ControllerCode: "TO", StartTime: time.Date(2024, 6, 10, 7, 120, 55, 0, time.UTC)},
 	}
 )
 
@@ -87,8 +91,8 @@ func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
 			e.From = values[i].(string)
 		case ToName:
 			e.To = values[i].(string)
-		case UrlName:
-			e.Url = values[i].(string)
+		case UriName:
+			e.Uri = values[i].(string)
 		case PathName:
 			e.Path = values[i].(string)
 
@@ -110,8 +114,8 @@ func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
 			e.RateLimit = values[i].(float64)
 		case RateBurstName:
 			e.RateBurst = values[i].(int32)
-		case ReasonCodeName:
-			e.ReasonCode = values[i].(string)
+		case ControllerCodeName:
+			e.ControllerCode = values[i].(string)
 		default:
 			err = errors.New(fmt.Sprintf("invalid field name: %v", name))
 			return
@@ -139,7 +143,7 @@ func (a Entry) Values() []any {
 		a.Method,
 		a.From,
 		a.To,
-		a.Url,
+		a.Uri,
 		a.Path,
 
 		a.StatusCode,
@@ -151,7 +155,7 @@ func (a Entry) Values() []any {
 		a.Timeout,
 		a.RateLimit,
 		a.RateBurst,
-		a.ReasonCode,
+		a.ControllerCode,
 	}
 }
 

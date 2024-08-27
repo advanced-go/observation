@@ -27,18 +27,20 @@ const (
 	MethodName    = "method"
 	FromName      = "from"
 	ToName        = "to"
-	UrlName       = "url"
+	UriName       = "url"
 	PathName      = "path"
 
 	StatusCodeName = "status_code"
 	EncodingName   = "encoding"
 	BytesName      = "bytes"
 
-	RouteName   = "route"
-	RouteToName = "route_to"
+	RouteName        = "route"
+	RouteToName      = "route_to"
+	RoutePercentName = "route_percent"
+	RouteCodeName    = "rc"
 
-	TimeoutName    = "timeout"
-	RateLimitName  = "rate_limit"
-	RateBurstName  = "rate_burst"
-	ReasonCodeName = "rc"
+	TimeoutName        = "timeout"
+	RateLimitName      = "rate_limit"
+	RateBurstName      = "rate_burst"
+	ControllerCodeName = "cc"
 )

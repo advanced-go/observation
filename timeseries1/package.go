@@ -44,8 +44,16 @@ func EgressQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status
 	return nil, core.StatusOK()
 }
 
+/*
 func EgressRoutingQuery(ctx context.Context, origin core.Origin) ([]Routing, *core.Status) {
 	return nil, core.StatusOK()
+}
+type Routing struct {
+	Url     string `json:"url"`
+	Host    string `json:"host"`
+	To      string `json:"to"` // Primary - secondary
+	Percent int    `json:"percent"`
+	Code    string `json:"code"`
 }
 
 func IngressRedirectQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
@@ -59,3 +67,6 @@ func EgressRedirectQuery(ctx context.Context, origin core.Origin) ([]Entry, *cor
 func EgressFailoverQuery(ctx context.Context, origin core.Origin) ([]Entry, *core.Status) {
 	return nil, core.StatusOK()
 }
+
+
+*/
