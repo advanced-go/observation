@@ -30,8 +30,8 @@ func Exchange(r *http.Request) (*http.Response, *core.Status) {
 	}
 	core.AddRequestId(r.Header)
 	switch p.Resource {
-	case module.ObservationAccess:
-		return accessExchange[core.Log](r, p)
+	case module.ObservationTimeseries:
+		return timeseriesExchange[core.Log](r, p)
 	case core.VersionPath:
 		return httpx.NewVersionResponse(module.Version), core.StatusOK()
 	case core.AuthorityPath:

@@ -9,19 +9,16 @@ import (
 	"net/url"
 )
 
-func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.Header, values url.Values, query pgxsql.QueryFuncT[T]) (entries []T, h2 http.Header, status *core.Status) {
+func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.Header, values url.Values) (entries []T, h2 http.Header, status *core.Status) {
 	var e E
 
 	if values == nil {
 		return nil, h2, core.StatusNotFound()
 	}
-	if query == nil {
-		query = testQuery[T] //pgxsql.QueryT[T]
-	}
 	if h != nil {
 		h.Set(core.XFrom, module.Authority)
 	}
-	entries, status = query(ctx, h, accessLogResource, accessLogSelect, values)
+	entries, status = pgxsql.QueryT[T](ctx, h, accessLogResource, accessLogSelect, values)
 	if !status.OK() {
 		e.Handle(status, core.RequestId(h))
 		return nil, h2, status

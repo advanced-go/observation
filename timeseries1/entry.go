@@ -36,14 +36,15 @@ type Entry struct {
 	Encoding   string `json:"encoding"`
 	Bytes      int64  `json:"bytes"`
 
-	Route          string  `json:"route"`
-	RouteTo        string  `json:"route-to"`
-	RoutePercent   int     `json:"route-percent"`
-	RouteCode      string  `json:"rc"`
 	Timeout        int32   `json:"timeout"`
 	RateLimit      float64 `json:"rate-limit"`
 	RateBurst      int32   `json:"rate-burst"`
 	ControllerCode string  `json:"cc"`
+
+	Route        string `json:"route"`
+	RouteTo      string `json:"route-to"`
+	RoutePercent int    `json:"route-percent"`
+	RouteCode    string `json:"rc"`
 }
 
 var (
@@ -107,6 +108,10 @@ func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
 			e.Route = values[i].(string)
 		case RouteToName:
 			e.RouteTo = values[i].(string)
+		case RoutePercentName:
+			e.RouteTo = values[i].(string)
+		case RouteCodeName:
+			e.RouteTo = values[i].(string)
 
 		case TimeoutName:
 			e.Timeout = values[i].(int32)
@@ -150,12 +155,15 @@ func (a Entry) Values() []any {
 		a.Encoding,
 		a.Bytes,
 
-		a.Route,
-		a.RouteTo,
 		a.Timeout,
 		a.RateLimit,
 		a.RateBurst,
 		a.ControllerCode,
+
+		a.Route,
+		a.RouteTo,
+		a.RoutePercent,
+		a.RouteCode,
 	}
 }
 

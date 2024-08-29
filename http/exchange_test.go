@@ -26,7 +26,7 @@ func ExampleExchange_Invalid() {
 
 }
 
-func ExampleExchange_Timeseries() {
+func ExampleExchange_Timeseries_dbClient_Error() {
 	uri := "http://localhost:8081/github/advanced-go/observation:v1/timeseries?region=*"
 	req, _ := http.NewRequest(http.MethodGet, uri, nil)
 
@@ -39,6 +39,23 @@ func ExampleExchange_Timeseries() {
 	}
 
 	//Output:
-	//test: Exchange() -> [status:OK] [status-code:200] [bytes:973] [count2]
+	//test: Exchange() -> [status:Internal Error]
+
+}
+
+func _ExampleExchange_Timeseries_dbClient_Error() {
+	uri := "http://localhost:8081/github/advanced-go/observation:v1/timeseries?region=*"
+	req, _ := http.NewRequest(http.MethodGet, uri, nil)
+
+	resp, status := Exchange(req)
+	if !status.OK() {
+		fmt.Printf("test: Exchange() -> [status:%v]\n", status)
+	} else {
+		entries, status1 := json.New[[]timeseries1.Entry](resp.Body, resp.Header)
+		fmt.Printf("test: Exchange() -> [status:%v] [status-code:%v] [bytes:%v] [count%v]\n", status1, resp.StatusCode, resp.ContentLength, len(entries))
+	}
+
+	//Output:
+	//test: Exchange() -> [status:Internal Error]
 
 }

@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	accessV1 = "file://[cwd]/timeseries1test/access-v1.json"
+	accessV1 = "file://[cwd]/timeseries1test/timeseries-v1.json"
 )
 
 func testQuery2[T pgxsql.Scanner[T]](ctx context.Context, h http.Header, resource, template string, values map[string][]string, args ...any) ([]T, *core.Status) {
@@ -31,7 +31,7 @@ func testQuery2[T pgxsql.Scanner[T]](ctx context.Context, h http.Header, resourc
 
 func ExampleGet() {
 	values := make(url.Values)
-	entries, _, status := get[core.Output](nil, nil, values, testQuery[Entry])
+	entries, _, status := get[core.Output, Entry](nil, nil, values)
 	fmt.Printf("test: get() -> [status:%v] [entries:%v]\n", status, len(entries))
 
 	//Output:

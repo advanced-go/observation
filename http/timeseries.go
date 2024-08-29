@@ -13,7 +13,7 @@ import (
 	"net/url"
 )
 
-func accessExchange[E core.ErrorHandler](r *http.Request, p *uri.Parsed) (*http.Response, *core.Status) {
+func timeseriesExchange[E core.ErrorHandler](r *http.Request, p *uri.Parsed) (*http.Response, *core.Status) {
 	h2 := make(http.Header)
 	h2.Add(httpx.ContentType, httpx.ContentTypeText)
 
@@ -27,16 +27,16 @@ func accessExchange[E core.ErrorHandler](r *http.Request, p *uri.Parsed) (*http.
 
 	switch r.Method {
 	case http.MethodGet:
-		return accessGet[E](r.Context(), r.Header, r.URL, p.Version)
+		return timeseriesGet[E](r.Context(), r.Header, r.URL, p.Version)
 	case http.MethodPut:
-		return accessPut[E](r, p.Version)
+		return timeseriesPut[E](r, p.Version)
 	default:
 		status := core.NewStatusError(http.StatusBadRequest, errors.New(fmt.Sprintf("error invalid method: [%v]", r.Method)))
 		return httpx.NewResponse[E](status.HttpCode(), h2, status.Err)
 	}
 }
 
-func accessGet[E core.ErrorHandler](ctx context.Context, h http.Header, url *url.URL, version string) (resp *http.Response, status *core.Status) {
+func timeseriesGet[E core.ErrorHandler](ctx context.Context, h http.Header, url *url.URL, version string) (resp *http.Response, status *core.Status) {
 	var entries any
 	var h2 http.Header
 
@@ -58,7 +58,7 @@ func accessGet[E core.ErrorHandler](ctx context.Context, h http.Header, url *url
 
 }
 
-func accessPut[E core.ErrorHandler](r *http.Request, version string) (resp *http.Response, status *core.Status) {
+func timeseriesPut[E core.ErrorHandler](r *http.Request, version string) (resp *http.Response, status *core.Status) {
 	var h2 http.Header
 
 	switch version {

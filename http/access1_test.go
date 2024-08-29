@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	entriesJson                = "file:///c:/Users/markb/GitHub/observation/timeseries1/timeseries1test/access-v1.json"
+	entriesJson                = "file:///c:/Users/markb/GitHub/observation/timeseries1/timeseries1test/timeseries-v1.json"
 	TimeseriesAuthority        = "github/advanced-go/timeseries"
 	TimeseriesAccessResourceV1 = "v1/access"
 )
