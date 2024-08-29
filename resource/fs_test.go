@@ -12,5 +12,5 @@ func ExampleReadFile() {
 
 	//Output:
 	//test: ReadFile() -> [buff:1609] [status:OK]
-	
+
 }

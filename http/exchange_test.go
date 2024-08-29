@@ -3,8 +3,11 @@ package http
 import (
 	"fmt"
 	"github.com/advanced-go/observation/timeseries1"
+	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/json"
 	"net/http"
+	"reflect"
+	"testing"
 )
 
 func ExampleExchange_Invalid() {
@@ -58,4 +61,29 @@ func _ExampleExchange_Timeseries_dbClient_Error() {
 	//Output:
 	//test: Exchange() -> [status:Internal Error]
 
+}
+
+func TestExchange(t *testing.T) {
+	type args struct {
+		r *http.Request
+	}
+	tests := []struct {
+		name  string
+		args  args
+		want  *http.Response
+		want1 *core.Status
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1 := Exchange(tt.args.r)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Exchange() got = %v, want %v", got, tt.want)
+			}
+			if !reflect.DeepEqual(got1, tt.want1) {
+				t.Errorf("Exchange() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
 }
