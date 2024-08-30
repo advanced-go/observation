@@ -14,12 +14,12 @@ const (
 	accessLogResource = "access-log"
 )
 
-// Get - resource GET
+// Get - testresource GET
 func Get(ctx context.Context, h http.Header, values url.Values) (entries []Entry, h2 http.Header, status *core.Status) {
 	return get[core.Log, Entry](ctx, core.AddRequestId(h), values)
 }
 
-// Put - resource PUT, with optional content override
+// Put - testresource PUT, with optional content override
 func Put(r *http.Request, body []Entry) (http.Header, *core.Status) {
 	if r == nil {
 		return nil, core.NewStatusError(core.StatusInvalidArgument, errors.New("error: request is nil"))

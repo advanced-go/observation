@@ -39,7 +39,7 @@ func Exchange(r *http.Request) (*http.Response, *core.Status) {
 	case core.HealthReadinessPath, core.HealthLivenessPath:
 		return httpx.NewHealthResponseOK(), core.StatusOK()
 	default:
-		status = core.NewStatusError(http.StatusNotFound, errors.New(fmt.Sprintf("error invalid URI, resource not found: [%v]", p.Resource)))
+		status = core.NewStatusError(http.StatusNotFound, errors.New(fmt.Sprintf("error invalid URI, testresource not found: [%v]", p.Resource)))
 		return httpx.NewResponse[core.Log](status.HttpCode(), h2, status.Err)
 	}
 }

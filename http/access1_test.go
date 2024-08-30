@@ -23,7 +23,7 @@ var (
 func initializeDocuments() {
 	defer controller.DisableLogging(true)()
 	if hostErr != nil {
-		fmt.Printf("error: new resource %v", hostErr)
+		fmt.Printf("error: new testresource %v", hostErr)
 	}
 	//entries, status := json.New[[]timeseries1.Entry](entriesJson, nil)
 	//if !status.OK() {

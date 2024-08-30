@@ -3,7 +3,6 @@ package timeseries1
 import (
 	"context"
 	"fmt"
-	"github.com/advanced-go/observation/resource"
 	"github.com/advanced-go/postgresql/pgxsql"
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/io"
@@ -32,7 +31,7 @@ func testQuery2[T pgxsql.Scanner[T]](ctx context.Context, h http.Header, resourc
 
 func ExampleGet() {
 	values := make(url.Values)
-	ctx := core.NewUrlContext(nil, resource.Timeseries1EntryURL)
+	ctx := core.NewUrlContext(nil, testrsc.Timeseries1EntryURL)
 	entries, _, status := get[core.Output, Entry](ctx, nil, values)
 	fmt.Printf("test: get() -> [status:%v] [entries:%v]\n", status, len(entries))
 
