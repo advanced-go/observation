@@ -32,7 +32,7 @@
   {
     "start-time":"2024-06-03T18:29:16.0450098Z",
     "duration":500,
-    "traffic":"ingress",
+    "traffic":"egress",
     "created-ts":"2024-06-03T18:29:16.0450098Z",
     "region":"us-west",
     "zone":"oregon",

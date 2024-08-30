@@ -1,4 +1,4 @@
-package testresource
+package testrsc
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 )
 
 func ExampleReadFile() {
-	name := "file:///f:/files/timeseries1/entry.json"
+	name := "file:///f:/files/timeseries1/entry-egress.json"
 	bytes, status := io.ReadFile(name)
 	fmt.Printf("test: ReadFile() -> [buff:%v] [status:%v]\n", len(bytes), status)
 

@@ -26,7 +26,8 @@ func Exchange(r *http.Request) (*http.Response, *core.Status) {
 	}
 	p, status := httpx.ValidateURL(r.URL, module.Authority)
 	if !status.OK() {
-		return httpx.NewResponse[core.Log](status.HttpCode(), h2, status.Err)
+		resp, _ := httpx.NewResponse[core.Log](status.HttpCode(), h2, status.Err)
+		return resp, status
 	}
 	core.AddRequestId(r.Header)
 	switch p.Resource {

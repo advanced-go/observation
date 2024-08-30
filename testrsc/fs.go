@@ -1,4 +1,4 @@
-package testresource
+package testrsc
 
 import (
 	"embed"
@@ -16,7 +16,10 @@ const (
 	TS1BasePath = "file:///f:/files/timeseries1"
 	TS2BasePath = "file:///f:/files/timeseries2"
 
-	Timeseries1EntryURL = TS1BasePath + "/entry.json"
+	TS1EntryEgressURL = TS1BasePath + "/entry-egress.json"
 
-	Timeseries2EntryURL = TS2BasePath + "/entry.json"
+	TS1GetReqURL  = TS1BasePath + "/get-req.txt"
+	TS1GetRespURL = TS1BasePath + "/get-resp.txt"
+
+	Timeseries2EntryURL = TS2BasePath + "/entry-egress.json"
 )
