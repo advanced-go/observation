@@ -1,4 +1,4 @@
-package timeseries1
+package timeseries2
 
 const (
 	//accessLogSelect = "SELECT * FROM access_log {where} order by start_time limit 2"
@@ -34,7 +34,10 @@ const (
 	EncodingName   = "encoding"
 	BytesName      = "bytes"
 
-	RouteName = "route"
+	RouteName        = "route"
+	RouteToName      = "route_to"
+	RoutePercentName = "route_percent"
+	RouteCodeName    = "rc"
 
 	TimeoutName        = "timeout"
 	RateLimitName      = "rate_limit"

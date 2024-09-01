@@ -1,4 +1,4 @@
-package timeseries1
+package timeseries2
 
 import (
 	"errors"
@@ -40,7 +40,10 @@ type Entry struct {
 	RateBurst      int32   `json:"rate-burst"`
 	ControllerCode string  `json:"cc"`
 
-	Route string `json:"route"`
+	Route        string `json:"route"`
+	RouteTo      string `json:"route-to"`
+	RoutePercent int    `json:"route-percent"`
+	RouteCode    string `json:"rc"`
 }
 
 func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
@@ -92,16 +95,13 @@ func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
 
 		case RouteName:
 			e.Route = values[i].(string)
-		/*
-				case RouteToName:
-				e.RouteTo = values[i].(string)
-			case RoutePercentName:
-				e.RouteTo = values[i].(string)
-			case RouteCodeName:
-				e.RouteTo = values[i].(string)
+		case RouteToName:
+			e.RouteTo = values[i].(string)
+		case RoutePercentName:
+			e.RouteTo = values[i].(string)
+		case RouteCodeName:
+			e.RouteTo = values[i].(string)
 
-
-		*/
 		case TimeoutName:
 			e.Timeout = values[i].(int32)
 		case RateLimitName:
@@ -150,9 +150,9 @@ func (e Entry) Values() []any {
 		e.ControllerCode,
 
 		e.Route,
-		//e.RouteTo,
-		//e.RoutePercent,
-		//e.RouteCode,
+		e.RouteTo,
+		e.RoutePercent,
+		e.RouteCode,
 	}
 }
 

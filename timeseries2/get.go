@@ -1,4 +1,4 @@
-package timeseries1
+package timeseries2
 
 import (
 	"context"

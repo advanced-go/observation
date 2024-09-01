@@ -16,10 +16,10 @@ const (
 	TS1BasePath = "file:///f:/files/timeseries1"
 	TS2BasePath = "file:///f:/files/timeseries2"
 
-	TS1EntryEgressURL = TS1BasePath + "/entry-egress.json"
+	TS1EgressEntryURL = TS1BasePath + "/egress-entry.json"
 
 	TS1GetReqURL  = TS1BasePath + "/get-req.txt"
 	TS1GetRespURL = TS1BasePath + "/get-resp.txt"
 
-	Timeseries2EntryURL = TS2BasePath + "/entry-egress.json"
+	TS2IngressEntryURL = TS2BasePath + "/ingress-entry.json"
 )

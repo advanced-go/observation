@@ -1,4 +1,4 @@
-package timeseries1
+package timeseries2
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 )
 
 func ExampleGet() {
+	ctx := core.NewUrlContext(nil, testrsc.TS2IngressEntryURL)
 	values := make(url.Values)
-	ctx := core.NewUrlContext(nil, testrsc.TS1EgressEntryURL)
 
 	values.Add(core.RegionKey, "us-west")
 	entries, _, status := get[core.Output, Entry](ctx, nil, values)

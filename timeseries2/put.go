@@ -1,4 +1,4 @@
-package timeseries1
+package timeseries2
 
 import (
 	"context"
@@ -26,6 +26,3 @@ func put[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 	}
 	return
 }
-
-
-

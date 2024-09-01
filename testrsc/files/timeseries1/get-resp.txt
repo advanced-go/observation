@@ -30,10 +30,7 @@ Connection: Closed
     "rate-limit":100,
     "rate-burst":10,
     "cc": "RL",
-    "route":"google-search",
-    "route-to":"primary",
-    "route-percent":80,
-    "route-code":"RD"
+    "route":"google-search"
   },
   {
     "start-time":"2024-06-03T18:29:16.0450098Z",
@@ -60,9 +57,6 @@ Connection: Closed
     "rate-burst":10,
     "cc": "TO",
     "bytes":12345,
-    "route":"search",
-    "route-to":"secondary",
-    "route-percent": 10,
-    "route-code": "FO"
+    "route":"search"
   }
 ]

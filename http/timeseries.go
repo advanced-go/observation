@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/advanced-go/observation/module"
 	"github.com/advanced-go/observation/timeseries1"
+	"github.com/advanced-go/observation/timeseries2"
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/httpx"
 	"github.com/advanced-go/stdlib/uri"
@@ -43,6 +44,8 @@ func timeseriesGet[E core.ErrorHandler](ctx context.Context, h http.Header, url 
 	switch version {
 	case module.Ver1, "":
 		entries, h2, status = timeseries1.Get(ctx, h, url.Query())
+	case module.Ver2:
+		entries, h2, status = timeseries2.Get(ctx, h, url.Query())
 	default:
 		status = core.NewStatusError(http.StatusBadRequest, errors.New(fmt.Sprintf("invalid version: [%v]", h.Get(core.XVersion))))
 	}
@@ -64,6 +67,8 @@ func timeseriesPut[E core.ErrorHandler](r *http.Request, version string) (resp *
 	switch version {
 	case module.Ver1, "":
 		h2, status = timeseries1.Put(r, nil)
+	case module.Ver2:
+		h2, status = timeseries2.Put(r, nil)
 	default:
 		status = core.NewStatusError(http.StatusBadRequest, errors.New(fmt.Sprintf("invalid version: [%v]", r.Header.Get(core.XVersion))))
 	}

@@ -1,2 +1,0 @@
-GET /github.com/advanced-go/observation:v1/timeseries HTTP/1.1
-

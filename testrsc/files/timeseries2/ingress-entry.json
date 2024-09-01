@@ -2,7 +2,7 @@
   {
     "start-time":"2024-06-03T18:29:16.0447249Z",
     "duration":100,
-    "traffic":"egress",
+    "traffic":"ingress",
     "created-ts":"2024-06-03T18:29:16.0450098Z",
     "region":"us-west",
     "zone":"oregon",
@@ -24,10 +24,10 @@
     "rate-limit":100,
     "rate-burst":10,
     "cc": "RL",
-    "route":"google-search",
+    "route":"host",
     "route-to":"primary",
-    "route-percent":80,
-    "route-code":"RD"
+    "route-percent":100,
+    "route-code":""
   },
   {
     "start-time":"2024-06-03T18:29:16.0450098Z",
@@ -54,9 +54,9 @@
     "rate-burst":10,
     "cc": "TO",
     "bytes":12345,
-    "route":"search",
+    "route":"host",
     "route-to":"secondary",
     "route-percent": 10,
-    "route-code": "FO"
+    "route-code": "RD"
   }
 ]

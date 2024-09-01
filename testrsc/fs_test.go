@@ -6,11 +6,11 @@ import (
 )
 
 func ExampleReadFile() {
-	name := "file:///f:/files/timeseries1/entry-egress.json"
+	name := "file:///f:/files/timeseries1/egress-entry.json"
 	bytes, status := io.ReadFile(name)
 	fmt.Printf("test: ReadFile() -> [buff:%v] [status:%v]\n", len(bytes), status)
 
 	//Output:
-	//test: ReadFile() -> [buff:1609] [status:OK]
+	//test: ReadFile() -> [buff:1456] [status:OK]
 
 }

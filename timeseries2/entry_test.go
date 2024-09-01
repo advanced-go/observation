@@ -1,4 +1,4 @@
-package timeseries1
+package timeseries2
 
 import (
 	"fmt"
@@ -16,7 +16,7 @@ var (
 	}
 )
 
-func _ExampleEntry() {
+func ExampleEntry() {
 	buf, status := json.Marshal(entryData)
 	if !status.OK() {
 		fmt.Printf("test: Entry{} -> [status:%v]\n", status)
