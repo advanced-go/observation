@@ -5,39 +5,10 @@ import (
 	"github.com/advanced-go/observation/testrsc"
 	"github.com/advanced-go/observation/timeseries1"
 	"github.com/advanced-go/stdlib/core"
-	"github.com/advanced-go/stdlib/httpx"
-	"io"
 	"net/http"
 	"reflect"
 	"testing"
 )
-
-type contentResults struct {
-	error  bool
-	entry  []timeseries1.Entry
-	status *core.Status
-}
-
-type contentStatus struct {
-	got  contentResults
-	want contentResults
-}
-
-func (c contentStatus) gotCode() int {
-	return c.got.status.Code
-}
-
-func (c contentStatus) gotEntry() []timeseries1.Entry {
-	return c.got.entry
-}
-
-func (c contentStatus) wantCode() int {
-	return c.want.status.Code
-}
-
-func (c contentStatus) wantEntry() []timeseries1.Entry {
-	return c.want.entry
-}
 
 func TestExchange1(t *testing.T) {
 	tests := []struct {
@@ -61,42 +32,16 @@ func TestExchange1(t *testing.T) {
 				t.Errorf("Exchange() got status code : %v, want status code : %v", resp.StatusCode, tt.resp.StatusCode)
 				cont = false
 			}
-			cs := contentStatus{}
+			cs := ContentStatus[timeseries1.Entry]{}
 			if cont {
-				cs, cont = content(resp.Body, tt.resp.Body, t)
+				cs, cont = content[timeseries1.Entry](resp.Body, tt.resp.Body, t)
 			}
 			if cont {
-				if !reflect.DeepEqual(cs.gotEntry(), cs.wantEntry()) {
-					t.Errorf("Exchange() got = %v, want %v", cs.gotEntry(), cs.wantEntry())
+				if !reflect.DeepEqual(cs.GotItems(), cs.WantItems()) {
+					t.Errorf("Exchange() got = %v, want %v", cs.GotItems(), cs.WantItems())
 				}
 			}
 		})
-	}
-}
-
-func content(gotBody, wantBody io.Reader, t *testing.T) (contentStatus, bool) {
-	s := contentStatus{}
-	results(gotBody, &s.got, t)
-	if s.got.error {
-		t.Errorf("content() %v err : %v", "got", s.got.status.Err)
-		return s, false
-	}
-	results(wantBody, &s.want, t)
-	if s.want.error {
-		t.Errorf("content() %v err : %v", "want", s.want.status.Err)
-		return s, false
-	}
-	if s.gotCode() != s.wantCode() {
-		t.Errorf("content() got status code : %v, want status code : %v", s.gotCode(), s.wantCode())
-		return s, false
-	}
-	return s, true
-}
-
-func results(body io.Reader, r *contentResults, t *testing.T) {
-	r.entry, r.status = httpx.Content[[]timeseries1.Entry](body)
-	if !r.status.OK() && !r.status.NotFound() {
-		r.error = true
 	}
 }
 
