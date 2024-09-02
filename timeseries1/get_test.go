@@ -9,7 +9,7 @@ import (
 
 func ExampleGet() {
 	values := make(url.Values)
-	ctx := core.NewUrlContext(nil, testrsc.TS1EgressEntryURL)
+	ctx := core.NewExchangeOverrideContext(nil, core.NewExchangeOverride("", testrsc.TS1EgressEntryURL, ""))
 
 	values.Add(core.RegionKey, "us-west")
 	entries, _, status := get[core.Output, Entry](ctx, nil, values)

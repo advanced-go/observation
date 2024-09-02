@@ -3,6 +3,7 @@ package timeseries1
 import (
 	"context"
 	"errors"
+	"github.com/advanced-go/observation/common"
 	"github.com/advanced-go/observation/module"
 	"github.com/advanced-go/postgresql/pgxsql"
 	"github.com/advanced-go/stdlib/core"
@@ -20,12 +21,9 @@ func put[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 	if h != nil {
 		h.Set(core.XFrom, module.Authority)
 	}
-	_, status = pgxsql.InsertT[T](ctx, h, accessLogResource, accessLogInsert, body)
+	_, status = pgxsql.InsertT[T](ctx, h, common.AccessLogResource, common.AccessLogInsert, body)
 	if !status.OK() {
 		e.Handle(status, core.RequestId(h))
 	}
 	return
 }
-
-
-

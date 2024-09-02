@@ -3,6 +3,7 @@ package timeseries2
 import (
 	"errors"
 	"fmt"
+	"github.com/advanced-go/observation/common"
 	"github.com/advanced-go/stdlib/core"
 	"time"
 )
@@ -49,66 +50,66 @@ type Entry struct {
 func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
 	for i, name := range columnNames {
 		switch name {
-		case startTimeName:
+		case common.StartTimeName:
 			e.StartTime = values[i].(time.Time)
-		case durationName:
+		case common.DurationName:
 			e.Duration = values[i].(int64)
-		case trafficName:
+		case common.TrafficName:
 			e.Traffic = values[i].(string)
-		case createdTSName:
+		case common.CreatedTSName:
 			e.CreatedTS = values[i].(time.Time)
 
-		case regionName:
+		case common.RegionName:
 			e.Region = values[i].(string)
-		case zoneName:
+		case common.ZoneName:
 			e.Zone = values[i].(string)
-		case subZoneName:
+		case common.SubZoneName:
 			e.SubZone = values[i].(string)
-		case hostName:
+		case common.HostName:
 			e.Host = values[i].(string)
-		case instanceIdName:
+		case common.InstanceIdName:
 			e.InstanceId = values[i].(string)
 
-		case requestIdName:
+		case common.RequestIdName:
 			e.RequestId = values[i].(string)
-		case relatesToName:
+		case common.RelatesToName:
 			e.RelatesTo = values[i].(string)
-		case protocolName:
+		case common.ProtocolName:
 			e.Protocol = values[i].(string)
-		case methodName:
+		case common.MethodName:
 			e.Method = values[i].(string)
-		case fromName:
+		case common.FromName:
 			e.From = values[i].(string)
-		case toName:
+		case common.ToName:
 			e.To = values[i].(string)
-		case uriName:
+		case common.UriName:
 			e.Uri = values[i].(string)
-		case pathName:
+		case common.PathName:
 			e.Path = values[i].(string)
 
-		case statusCodeName:
+		case common.StatusCodeName:
 			e.StatusCode = values[i].(int32)
-		case encodingName:
+		case common.EncodingName:
 			e.Encoding = values[i].(string)
-		case bytesName:
+		case common.BytesName:
 			e.Bytes = values[i].(int64)
 
-		case routeName:
+		case common.RouteName:
 			e.Route = values[i].(string)
-		case routeToName:
+		case common.RouteToName:
 			e.RouteTo = values[i].(string)
-		case routePercentName:
+		case common.RoutePercentName:
 			e.RouteTo = values[i].(string)
-		case routeCodeName:
+		case common.RouteCodeName:
 			e.RouteTo = values[i].(string)
 
-		case timeoutName:
+		case common.TimeoutName:
 			e.Timeout = values[i].(int32)
-		case rateLimitName:
+		case common.RateLimitName:
 			e.RateLimit = values[i].(float64)
-		case rateBurstName:
+		case common.RateBurstName:
 			e.RateBurst = values[i].(int32)
-		case controllerCodeName:
+		case common.ControllerCodeName:
 			e.ControllerCode = values[i].(string)
 		default:
 			err = errors.New(fmt.Sprintf("invalid field name: %v", name))

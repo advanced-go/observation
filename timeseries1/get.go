@@ -2,6 +2,7 @@ package timeseries1
 
 import (
 	"context"
+	"github.com/advanced-go/observation/common"
 	"github.com/advanced-go/observation/module"
 	"github.com/advanced-go/postgresql/pgxsql"
 	"github.com/advanced-go/stdlib/core"
@@ -18,7 +19,7 @@ func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 	if h != nil {
 		h.Set(core.XFrom, module.Authority)
 	}
-	entries, status = pgxsql.QueryT[T](ctx, h, accessLogResource, accessLogSelect, values)
+	entries, status = pgxsql.QueryT[T](ctx, h, common.AccessLogResource, common.AccessLogSelect, values)
 	if !status.OK() {
 		e.Handle(status, core.RequestId(h))
 		return nil, h2, status
