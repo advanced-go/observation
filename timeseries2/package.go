@@ -10,8 +10,7 @@ import (
 )
 
 const (
-	PkgPath           = "github/advanced-go/observation/timeseries2"
-	accessLogResource = "access-log"
+	PkgPath = "github/advanced-go/observation/timeseries2"
 )
 
 // Get - timeseries2 resource GET

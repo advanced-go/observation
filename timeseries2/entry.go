@@ -49,66 +49,66 @@ type Entry struct {
 func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
 	for i, name := range columnNames {
 		switch name {
-		case StartTimeName:
+		case startTimeName:
 			e.StartTime = values[i].(time.Time)
-		case DurationName:
+		case durationName:
 			e.Duration = values[i].(int64)
-		case TrafficName:
+		case trafficName:
 			e.Traffic = values[i].(string)
-		case CreatedTSName:
+		case createdTSName:
 			e.CreatedTS = values[i].(time.Time)
 
-		case RegionName:
+		case regionName:
 			e.Region = values[i].(string)
-		case ZoneName:
+		case zoneName:
 			e.Zone = values[i].(string)
-		case SubZoneName:
+		case subZoneName:
 			e.SubZone = values[i].(string)
-		case HostName:
+		case hostName:
 			e.Host = values[i].(string)
-		case InstanceIdName:
+		case instanceIdName:
 			e.InstanceId = values[i].(string)
 
-		case RequestIdName:
+		case requestIdName:
 			e.RequestId = values[i].(string)
-		case RelatesToName:
+		case relatesToName:
 			e.RelatesTo = values[i].(string)
-		case ProtocolName:
+		case protocolName:
 			e.Protocol = values[i].(string)
-		case MethodName:
+		case methodName:
 			e.Method = values[i].(string)
-		case FromName:
+		case fromName:
 			e.From = values[i].(string)
-		case ToName:
+		case toName:
 			e.To = values[i].(string)
-		case UriName:
+		case uriName:
 			e.Uri = values[i].(string)
-		case PathName:
+		case pathName:
 			e.Path = values[i].(string)
 
-		case StatusCodeName:
+		case statusCodeName:
 			e.StatusCode = values[i].(int32)
-		case EncodingName:
+		case encodingName:
 			e.Encoding = values[i].(string)
-		case BytesName:
+		case bytesName:
 			e.Bytes = values[i].(int64)
 
-		case RouteName:
+		case routeName:
 			e.Route = values[i].(string)
-		case RouteToName:
+		case routeToName:
 			e.RouteTo = values[i].(string)
-		case RoutePercentName:
+		case routePercentName:
 			e.RouteTo = values[i].(string)
-		case RouteCodeName:
+		case routeCodeName:
 			e.RouteTo = values[i].(string)
 
-		case TimeoutName:
+		case timeoutName:
 			e.Timeout = values[i].(int32)
-		case RateLimitName:
+		case rateLimitName:
 			e.RateLimit = values[i].(float64)
-		case RateBurstName:
+		case rateBurstName:
 			e.RateBurst = values[i].(int32)
-		case ControllerCodeName:
+		case controllerCodeName:
 			e.ControllerCode = values[i].(string)
 		default:
 			err = errors.New(fmt.Sprintf("invalid field name: %v", name))

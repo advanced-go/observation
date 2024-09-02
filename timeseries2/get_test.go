@@ -8,7 +8,8 @@ import (
 )
 
 func ExampleGet() {
-	ctx := core.NewUrlContext(nil, testrsc.TS2IngressEntryURL)
+	ex := core.NewExchangeOverride("", testrsc.TS2IngressEntryURL, "")
+	ctx := core.NewExchangeOverrideContext(nil, ex)
 	values := make(url.Values)
 
 	values.Add(core.RegionKey, "us-west")

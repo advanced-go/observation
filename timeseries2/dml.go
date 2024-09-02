@@ -1,46 +1,41 @@
 package timeseries2
 
 const (
-	//accessLogSelect = "SELECT * FROM access_log {where} order by start_time limit 2"
-	accessLogSelect = "SELECT region,customer_id,start_time,duration_str,traffic,rate_limit FROM access_log {where} order by start_time desc limit 2"
+	accessLogResource = "access-log"
+	accessLogSelect   = "select * from access-log"
+	accessLogInsert   = "insert into access-log"
 
-	accessLogInsert = "INSERT INTO access_log (" +
-		"customer_id,start_time,duration_ms,duration_str,traffic," +
-		"region,zone,sub_zone,service,instance_id,route_name," +
-		"request_id,url,protocol,method,host,path,status_code,bytes_sent,status_flags," +
-		"timeout,rate_limit,rate_burst,retry,retry_rate_limit,retry_rate_burst,failover) VALUES"
+	startTimeName = "start_time"
+	durationName  = "duration_ms"
+	trafficName   = "traffic"
+	createdTSName = "created_ts"
 
-	StartTimeName = "start_time"
-	DurationName  = "duration_ms"
-	TrafficName   = "traffic"
-	CreatedTSName = "created_ts"
+	regionName     = "region"
+	zoneName       = "zone"
+	subZoneName    = "sub_zone"
+	hostName       = "host"
+	instanceIdName = "instance_id"
 
-	RegionName     = "region"
-	ZoneName       = "zone"
-	SubZoneName    = "sub_zone"
-	HostName       = "host"
-	InstanceIdName = "instance_id"
+	requestIdName = "request_id"
+	relatesToName = "relates_to"
+	protocolName  = "protocol"
+	methodName    = "method"
+	fromName      = "from"
+	toName        = "to"
+	uriName       = "url"
+	pathName      = "path"
 
-	RequestIdName = "request_id"
-	RelatesToName = "relates_to"
-	ProtocolName  = "protocol"
-	MethodName    = "method"
-	FromName      = "from"
-	ToName        = "to"
-	UriName       = "url"
-	PathName      = "path"
+	statusCodeName = "status_code"
+	encodingName   = "encoding"
+	bytesName      = "bytes"
 
-	StatusCodeName = "status_code"
-	EncodingName   = "encoding"
-	BytesName      = "bytes"
+	routeName        = "route"
+	routeToName      = "route_to"
+	routePercentName = "route_percent"
+	routeCodeName    = "rc"
 
-	RouteName        = "route"
-	RouteToName      = "route_to"
-	RoutePercentName = "route_percent"
-	RouteCodeName    = "rc"
-
-	TimeoutName        = "timeout"
-	RateLimitName      = "rate_limit"
-	RateBurstName      = "rate_burst"
-	ControllerCodeName = "cc"
+	timeoutName        = "timeout"
+	rateLimitName      = "rate_limit"
+	rateBurstName      = "rate_burst"
+	controllerCodeName = "cc"
 )

@@ -6,6 +6,10 @@ github.com/advanced-go/postgresql v0.0.0-20240720114046-6e895f523ca7 h1:gV/02K4k
 github.com/advanced-go/postgresql v0.0.0-20240720114046-6e895f523ca7/go.mod h1:3SiG2g3uvHzbVHR7YY3bLN+Zm3+lFgSSwh4Pnwgtx2I=
 github.com/advanced-go/postgresql v0.0.0-20240828133920-18035c06cdcd h1:RmHM74qv7Rz5YC/dXAwnN5uq93mzyne80W8UH8USZUM=
 github.com/advanced-go/postgresql v0.0.0-20240828133920-18035c06cdcd/go.mod h1:uD7u+xYPsxmQOfwWrQkQHA9GH/CVVu18qLuGWm0yzUk=
+github.com/advanced-go/postgresql v0.0.0-20240902130831-ef42010bd4bb h1:EQvPGK+lL/NNmix6WfzRZfm6O5JdmyBhkfC0sz8V0K0=
+github.com/advanced-go/postgresql v0.0.0-20240902130831-ef42010bd4bb/go.mod h1:KIqyz1HdboTbIr9ugyeMuLJXc3zFCbgE5GpJCW13KyI=
+github.com/advanced-go/postgresql v0.0.0-20240902134740-7ddc1bb93839 h1:xfCGf0KBZhN8mPu1tF9u19Er8Q7kEoXNSuVKIRhfL3A=
+github.com/advanced-go/postgresql v0.0.0-20240902134740-7ddc1bb93839/go.mod h1:GmAlTGWozRWTXIIwut0SEGAeuQqI4S+tUJYEvzkwkUA=
 github.com/advanced-go/stdlib v0.0.0-20240612133659-188a62ee483e h1:25GDl5YHcwHHKv1Xf3L0tLuQILMi+Ee/kEo9QSwIe7A=
 github.com/advanced-go/stdlib v0.0.0-20240612133659-188a62ee483e/go.mod h1:bvuWc7Tx57LArgrEvbPxKW4hvIYGS3pw7iG4P6xofoQ=
 github.com/advanced-go/stdlib v0.0.0-20240719142541-ba3757f2ff0b h1:+mJcFrKkATdLhyDIhRLnqYYzEAMlBi10ILbJzQRRoCg=
@@ -30,6 +34,10 @@ github.com/advanced-go/stdlib v0.0.0-20240830164714-1d470f42a129 h1:vevFCN7qqHQk
 github.com/advanced-go/stdlib v0.0.0-20240830164714-1d470f42a129/go.mod h1:bvuWc7Tx57LArgrEvbPxKW4hvIYGS3pw7iG4P6xofoQ=
 github.com/advanced-go/stdlib v0.0.0-20240830171718-065dc76031ff h1:XRbLlE9D+cCCEEUtv+01NHIXairobLiFsnO7bgPmHo0=
 github.com/advanced-go/stdlib v0.0.0-20240830171718-065dc76031ff/go.mod h1:bvuWc7Tx57LArgrEvbPxKW4hvIYGS3pw7iG4P6xofoQ=
+github.com/advanced-go/stdlib v0.0.0-20240901143300-091c6622f9f6 h1:UljqOYP73T3o0qn8LUL408UTmUztSQgKwOgFwraOSWo=
+github.com/advanced-go/stdlib v0.0.0-20240901143300-091c6622f9f6/go.mod h1:bvuWc7Tx57LArgrEvbPxKW4hvIYGS3pw7iG4P6xofoQ=
+github.com/advanced-go/stdlib v0.0.0-20240902132119-c7636d635deb h1:Q7sbaFgH0jD7JVWySqjtUHj4O9eyeKX8YDDKKA++aTo=
+github.com/advanced-go/stdlib v0.0.0-20240902132119-c7636d635deb/go.mod h1:bvuWc7Tx57LArgrEvbPxKW4hvIYGS3pw7iG4P6xofoQ=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
