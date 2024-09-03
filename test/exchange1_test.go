@@ -26,7 +26,7 @@ func TestExchange1(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			resp, status := http2.Exchange(tt.req)
 			if tt.status != nil && status.Code != tt.status.Code {
-				t.Errorf("Exchange() got status : %v, want status : %v, %v", status.Code, tt.status.Code, status.Err)
+				t.Errorf("Exchange() got status : %v, want status : %v, error : %v", status.Code, tt.status.Code, status.Err)
 				cont = false
 			}
 			if cont && resp.StatusCode != tt.resp.StatusCode {
