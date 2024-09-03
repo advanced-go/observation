@@ -24,6 +24,9 @@ func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 		e.Handle(status, core.RequestId(h))
 		return nil, h2, status
 	}
+	if values == nil || len(values) == 0 {
+		return
+	}
 	entries = filter[T](entries, values)
 	if len(entries) == 0 {
 		status = core.NewStatus(http.StatusNotFound)
