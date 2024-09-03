@@ -5,6 +5,7 @@ import (
 	"github.com/advanced-go/observation/testrsc"
 	"github.com/advanced-go/observation/timeseries1"
 	"github.com/advanced-go/stdlib/core"
+	httpt "github.com/advanced-go/stdlib/httpx/httpxtest"
 	"net/http"
 	"reflect"
 	"testing"
@@ -18,7 +19,7 @@ func TestExchange1(t *testing.T) {
 		status *core.Status
 	}{
 		//{name: "read-request-error", req: readRequest("", t), resp: readResponse(testrsc.TS1GetRespURL, t), status: core.StatusOK()},
-		{name: "get-entry", req: readRequest(testrsc.TS1GetReqURL, t), resp: readResponse(testrsc.TS1GetRespURL, t), status: core.StatusOK()},
+		{name: "get-entry", req: httpt.NewRequestTest(testrsc.TS1GetReqURL, t), resp: httpt.NewResponseTest(testrsc.TS1GetRespURL, t), status: core.StatusOK()},
 	}
 	for _, tt := range tests {
 		cont := true
