@@ -22,24 +22,25 @@ func TestExchange1(t *testing.T) {
 		{name: "get-entry", req: httpt.NewRequestTest(testrsc.TS1GetReqURL, t), resp: httpt.NewResponseTest(testrsc.TS1GetRespURL, t), status: core.StatusOK()},
 	}
 	for _, tt := range tests {
-		cont := true
+		success := true
 		t.Run(tt.name, func(t *testing.T) {
 			resp, status := http2.Exchange(tt.req)
 			if tt.status != nil && status.Code != tt.status.Code {
 				t.Errorf("Exchange() got status : %v, want status : %v, error : %v", status.Code, tt.status.Code, status.Err)
-				cont = false
+				success = false
 			}
-			if cont && resp.StatusCode != tt.resp.StatusCode {
+			if success && resp.StatusCode != tt.resp.StatusCode {
 				t.Errorf("Exchange() got status code : %v, want status code : %v", resp.StatusCode, tt.resp.StatusCode)
-				cont = false
+				success = false
 			}
-			cs := ContentStatus[timeseries1.Entry]{}
-			if cont {
-				cs, cont = content[timeseries1.Entry](resp.Body, tt.resp.Body, t)
+			var gotT []timeseries1.Entry
+			var wantT []timeseries1.Entry
+			if success {
+				gotT, wantT, success = Deserialize[[]timeseries1.Entry](resp.Body, tt.resp.Body, t)
 			}
-			if cont {
-				if !reflect.DeepEqual(cs.GotItems(), cs.WantItems()) {
-					t.Errorf("Exchange() got = %v, want %v", cs.GotItems(), cs.WantItems())
+			if success {
+				if !reflect.DeepEqual(gotT, wantT) {
+					t.Errorf("Exchange() got = %v, want %v", gotT, wantT)
 				}
 			}
 		})

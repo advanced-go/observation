@@ -7,15 +7,16 @@ import (
 	"testing"
 )
 
-type ContentResults[T any] struct {
+type DeserializeStatus[T any] struct {
 	Error  bool
-	Items  []T
+	Data   T
 	Status *core.Status
 }
 
+/*
 type ContentStatus[T any] struct {
-	Got  ContentResults[T]
-	Want ContentResults[T]
+	Got  DeserializeStatus[T]
+	Want DeserializeStatus[T]
 }
 
 func (c ContentStatus[T]) GotCode() int {
@@ -34,28 +35,31 @@ func (c ContentStatus[T]) WantItems() []T {
 	return c.Want.Items
 }
 
-func content[T any](gotBody, wantBody io.Reader, t *testing.T) (ContentStatus[T], bool) {
-	s := ContentStatus[T]{}
-	results(gotBody, &s.Got)
-	if s.Got.Error {
-		t.Errorf("content() %v err = %v", "got", s.Got.Status.Err)
-		return s, false
+
+*/
+
+func Deserialize2[T any](gotBody, wantBody io.Reader, t *testing.T) (gotStatus, wantStatus DeserializeStatus[T], success bool) {
+	results(gotBody, &gotStatus)
+	if gotStatus.Error {
+		t.Errorf("Deserialize() %v err = %v", "got", gotStatus.Status.Err)
+		return
 	}
-	results(wantBody, &s.Want)
-	if s.Want.Error {
-		t.Errorf("content() %v err =%v", "want", s.Want.Status.Err)
-		return s, false
+	results(wantBody, &wantStatus)
+	if wantStatus.Error {
+		t.Errorf("Deserialize() %v err =%v", "want", wantStatus.Status.Err)
+		return
 	}
-	if s.GotCode() != s.WantCode() {
-		t.Errorf("content() got status code = %v, want status code = %v", s.GotCode(), s.WantCode())
-		return s, false
+	if gotStatus.Status.Code != wantStatus.Status.Code {
+		t.Errorf("Deserialize() got status code = %v, want status code = %v", gotStatus.Status.Code, wantStatus.Status.Code)
+		return
 	}
-	return s, true
+	return gotStatus, wantStatus, true
 }
 
-func results[T any](body io.Reader, r *ContentResults[T]) {
-	r.Items, r.Status = httpx.Content[[]T](body)
+func results[T any](body io.Reader, r *DeserializeStatus[T]) (bool, *core.Status) {
+	r.Data, r.Status = httpx.Content[T](body)
 	if !r.Status.OK() && !r.Status.NotFound() {
 		r.Error = true
 	}
+	return r.Error, r.Status
 }
