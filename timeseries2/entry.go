@@ -10,10 +10,11 @@ import (
 
 // Entry - timeseries access log struct
 type Entry struct {
-	StartTime time.Time `json:"start-time"`
-	Duration  int64     `json:"duration"`
-	Traffic   string    `json:"traffic"`
-	CreatedTS time.Time `json:"created-ts"`
+	CustomerId string    `json:"customer-id"`
+	StartTime  time.Time `json:"start-time"`
+	Duration   int64     `json:"duration"`
+	Traffic    string    `json:"traffic"`
+	CreatedTS  time.Time `json:"created-ts"`
 
 	Region     string `json:"region"`
 	Zone       string `json:"zone"`
@@ -50,6 +51,8 @@ type Entry struct {
 func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
 	for i, name := range columnNames {
 		switch name {
+		case common.CustomerIdName:
+			e.CustomerId = values[i].(string)
 		case common.StartTimeName:
 			e.StartTime = values[i].(time.Time)
 		case common.DurationName:
@@ -121,6 +124,7 @@ func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
 
 func (e Entry) Values() []any {
 	return []any{
+		e.CustomerId,
 		e.StartTime,
 		e.Duration,
 		e.Traffic,

@@ -16,18 +16,19 @@ func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 	if values == nil {
 		return nil, h2, core.StatusNotFound()
 	}
-	if h != nil {
-		h.Set(core.XFrom, module.Authority)
+	// Set XFrom so that pgxsql logging is correct.
+	if h == nil {
+		h = make(http.Header)
 	}
+	h.Set(core.XFrom, module.Authority)
 	entries, status = pgxsql.QueryT[T](ctx, h, common.AccessLogResource, common.AccessLogSelect, values)
 	if !status.OK() {
 		e.Handle(status, core.RequestId(h))
 		return nil, h2, status
 	}
-	if values == nil || len(values) == 0 {
-		return
+	if values != nil && len(values) > 0 {
+		entries = filter[T](entries, values)
 	}
-	entries = filter[T](entries, values)
 	if len(entries) == 0 {
 		status = core.NewStatus(http.StatusNotFound)
 	}
@@ -36,12 +37,16 @@ func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 
 func filter[T pgxsql.Scanner[T]](entries []T, values url.Values) (result []T) {
 	match := core.NewOrigin(values)
+	customer := values.Get("customer")
 	switch p := any(&result).(type) {
 	case *[]Entry:
 		if p != nil {
 		}
 		if entries2, ok := any(entries).([]Entry); ok {
 			for _, e := range entries2 {
+				if customer != "" && customer != e.CustomerId {
+					continue
+				}
 				if core.OriginMatch(e.Origin(), match) {
 					*p = append(*p, e)
 				}

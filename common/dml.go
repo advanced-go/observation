@@ -11,10 +11,11 @@ const (
 		"request_id,url,protocol,method,host,path,status_code,bytes_sent,status_flags," +
 		"timeout,rate_limit,rate_burst,retry,retry_rate_limit,retry_rate_burst,failover) VALUES"
 
-	StartTimeName = "start_time"
-	DurationName  = "duration_ms"
-	TrafficName   = "traffic"
-	CreatedTSName = "created_ts"
+	CustomerIdName = "customer_id"
+	StartTimeName  = "start_time"
+	DurationName   = "duration_ms"
+	TrafficName    = "traffic"
+	CreatedTSName  = "created_ts"
 
 	RegionName     = "region"
 	ZoneName       = "zone"
