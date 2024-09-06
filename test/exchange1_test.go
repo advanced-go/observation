@@ -36,7 +36,7 @@ func TestExchange1(t *testing.T) {
 			var gotT []timeseries1.Entry
 			var wantT []timeseries1.Entry
 			if success {
-				gotT, wantT, success = httpt.Deserialize[[]timeseries1.Entry](resp.Body, tt.resp.Body, t)
+				gotT, wantT, success = httpt.Deserialize[core.Output, []timeseries1.Entry](resp.Body, tt.resp.Body, t)
 			}
 			if success {
 				if !reflect.DeepEqual(gotT, wantT) {
