@@ -27,7 +27,7 @@ func Put(r *http.Request, body []Entry) (http.Header, *core.Status) {
 		content, status := json2.New[[]Entry](r.Body, r.Header)
 		if !status.OK() {
 			var e core.Log
-			e.Handle(status, core.RequestId(r.Header))
+			e.Handle(status.WithRequestId(r.Header))
 			return nil, status
 		}
 		body = content

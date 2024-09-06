@@ -23,7 +23,7 @@ func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 	h.Set(core.XFrom, module.Authority)
 	entries, status = pgxsql.QueryT[T](ctx, h, common.AccessLogResource, common.AccessLogSelect, values)
 	if !status.OK() {
-		e.Handle(status, core.RequestId(h))
+		e.Handle(status.WithRequestId(h))
 		return nil, h2, status
 	}
 	if values != nil && len(values) > 0 {

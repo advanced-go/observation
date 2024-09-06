@@ -23,7 +23,7 @@ func put[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 	}
 	_, status = pgxsql.InsertT[T](ctx, h, common.AccessLogResource, common.AccessLogInsert, body)
 	if !status.OK() {
-		e.Handle(status, core.RequestId(h))
+		e.Handle(status.WithRequestId(h))
 	}
 	return
 }
