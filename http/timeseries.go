@@ -43,9 +43,9 @@ func timeseriesGet[E core.ErrorHandler](ctx context.Context, h http.Header, url 
 
 	switch version {
 	case module.Ver1, "":
-		entries, h2, status = timeseries1.Get(ctx, h, url.Query())
+		entries, h2, status = timeseries1.Get(ctx, h, url)
 	case module.Ver2:
-		entries, h2, status = timeseries2.Get(ctx, h, url.Query())
+		entries, h2, status = timeseries2.Get(ctx, h, url)
 	default:
 		status = core.NewStatusError(http.StatusBadRequest, errors.New(fmt.Sprintf("invalid version: [%v]", h.Get(core.XVersion))))
 	}

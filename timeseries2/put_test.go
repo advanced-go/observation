@@ -8,7 +8,7 @@ import (
 )
 
 func ExamplePut() {
-	entries, _ := json.New[[]Entry](testrsc.TS2IngressEntryURL, nil)
+	entries, _ := json.New[[]Entry](testrsc.TS2IngressEntry, nil)
 
 	ex := core.NewExchangeOverride("", "", json.StatusTimeoutUri)
 	ctx := core.NewExchangeOverrideContext(nil, ex)

@@ -7,6 +7,7 @@ const (
 	Ver1                  = "v1"
 	Ver2                  = "v2"
 	ObservationTimeseries = "timeseries"
+	VersionRoute          = "version"
 )
 
 // Configuration keys used on startup for map values

@@ -24,8 +24,8 @@ func ExampleExchange_Invalid() {
 
 	//Output:
 	//test: Exchange(nil) -> [status:Bad Request] [status-code:400]
-	//test: Exchange(nil) -> [status:Bad Request] [status-code:400]
-	//test: Exchange(nil) -> [status:Bad Request] [status-code:400]
+	//test: Exchange(nil) -> [status:Bad Request [error: invalid URI, authority does not match: "/search" "github/advanced-go/observation"]] [status-code:400]
+	//test: Exchange(nil) -> [status:Bad Request [error: invalid URI, path only contains an authority: "/github/advanced-go/observation"]] [status-code:400]
 
 }
 
@@ -42,24 +42,7 @@ func ExampleExchange_Timeseries_dbClient_Error() {
 	}
 
 	//Output:
-	//test: Exchange() -> [status:Internal Error]
-
-}
-
-func _ExampleExchange_Timeseries_dbClient_Error() {
-	uri := "http://localhost:8081/github/advanced-go/observation:v1/timeseries?region=*"
-	req, _ := http.NewRequest(http.MethodGet, uri, nil)
-
-	resp, status := Exchange(req)
-	if !status.OK() {
-		fmt.Printf("test: Exchange() -> [status:%v]\n", status)
-	} else {
-		entries, status1 := json.New[[]timeseries1.Entry](resp.Body, resp.Header)
-		fmt.Printf("test: Exchange() -> [status:%v] [status-code:%v] [bytes:%v] [count%v]\n", status1, resp.StatusCode, resp.ContentLength, len(entries))
-	}
-
-	//Output:
-	//test: Exchange() -> [status:Internal Error]
+	//test: Exchange() -> [status:Invalid Argument [error on PostgreSQL database query call: dbClient is nil]]
 
 }
 

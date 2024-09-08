@@ -8,16 +8,16 @@ import (
 )
 
 func ExampleGet() {
-	ex := core.NewExchangeOverride("", testrsc.TS2IngressEntryURL, "")
+	ex := core.NewExchangeOverride("", testrsc.TS2IngressEntry, "")
 	ctx := core.NewExchangeOverrideContext(nil, ex)
 	values := make(url.Values)
 
 	values.Add(core.RegionKey, "us-west")
-	entries, _, status := get[core.Output, Entry](ctx, nil, values)
+	entries, _, status := get[core.Output, Entry](ctx, nil, "", values)
 	fmt.Printf("test: get() -> [status:%v] [entries:%v]\n", status, len(entries))
 
 	values.Add(core.SubZoneKey, "dc1")
-	entries, _, status = get[core.Output, Entry](ctx, nil, values)
+	entries, _, status = get[core.Output, Entry](ctx, nil, "", values)
 	fmt.Printf("test: get() -> [status:%v] [entries:%v]\n", status, len(entries))
 
 	//Output:

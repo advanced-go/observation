@@ -7,15 +7,31 @@ import (
 	json2 "github.com/advanced-go/stdlib/json"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 const (
-	PkgPath = "github/advanced-go/observation/timeseries2"
+	PkgPath         = "github/advanced-go/observation/timeseries2"
+	EgressResource  = "egress"
+	IngressResource = "ingress"
 )
 
 // Get - timeseries2 resource GET
-func Get(ctx context.Context, h http.Header, values url.Values) (entries []Entry, h2 http.Header, status *core.Status) {
-	return get[core.Log, Entry](ctx, core.AddRequestId(h), values)
+func Get(ctx context.Context, h http.Header, u *url.URL) (entries []Entry, h2 http.Header, status *core.Status) {
+	if u == nil {
+		return nil, h, core.NewStatusError(core.StatusInvalidArgument, errors.New("error: URL is nil"))
+	}
+	rsc := ""
+	if strings.Contains(u.Path, EgressResource) {
+		rsc = EgressResource
+	} else {
+		if strings.Contains(u.Path, IngressResource) {
+			rsc = IngressResource
+		} else {
+			return nil, h, core.NewStatusError(http.StatusBadRequest, errors.New("error: resource is not ingress or egress"))
+		}
+	}
+	return get[core.Log, Entry](ctx, core.AddRequestId(h), rsc, u.Query())
 }
 
 // Put - timeseries2 PUT, with optional content override

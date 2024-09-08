@@ -4,23 +4,37 @@ import (
 	"context"
 	"github.com/advanced-go/observation/common"
 	"github.com/advanced-go/observation/module"
+	"github.com/advanced-go/observation/testrsc"
 	"github.com/advanced-go/postgresql/pgxsql"
 	"github.com/advanced-go/stdlib/core"
+	"github.com/advanced-go/stdlib/httpx"
 	"net/http"
 	"net/url"
 )
 
-func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.Header, values url.Values) (entries []T, h2 http.Header, status *core.Status) {
+func testContext(ctx context.Context, resource string) context.Context {
+	ex := core.ExchangeOverrideFromContext(ctx)
+	if ex != nil {
+		return ctx
+	}
+	rsc := testrsc.TS2EgressEntryTest
+	if resource == IngressResource {
+		rsc = testrsc.TS2IngressEntryTest
+	}
+	return core.NewExchangeOverrideContext(ctx, core.NewExchangeOverride("", rsc, ""))
+}
+
+func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.Header, resource string, values url.Values) (entries []T, h2 http.Header, status *core.Status) {
 	var e E
 
 	if values == nil {
 		return nil, h2, core.StatusNotFound()
 	}
+	// Testing only
+	ctx = testContext(ctx, resource)
+
 	// Set XFrom so that pgxsql logging is correct.
-	if h == nil {
-		h = make(http.Header)
-	}
-	h.Set(core.XFrom, module.Authority)
+	h = httpx.AddHeader(h, core.XFrom, module.Authority)
 	entries, status = pgxsql.QueryT[T](ctx, h, common.AccessLogResource, common.AccessLogSelect, values)
 	if !status.OK() {
 		e.Handle(status.WithRequestId(h))
