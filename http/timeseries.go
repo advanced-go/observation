@@ -54,7 +54,8 @@ func timeseriesGet[E core.ErrorHandler](ctx context.Context, h http.Header, url 
 	}
 	if !status.OK() {
 		h2.Add(httpx.ContentType, httpx.ContentTypeText)
-		return httpx.NewResponse[E](status.HttpCode(), h2, status.Err)
+		resp, _ = httpx.NewResponse[E](status.HttpCode(), h2, status.Err)
+		return resp, status
 	}
 	h2.Add(httpx.ContentType, httpx.ContentTypeJson)
 	return httpx.NewResponse[E](status.HttpCode(), h2, entries)
