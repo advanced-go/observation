@@ -12,7 +12,7 @@ import (
 	"net/url"
 )
 
-func testContext(ctx context.Context, resource string) context.Context {
+func testOverride(ctx context.Context, resource string) context.Context {
 	ex := core.ExchangeOverrideFromContext(ctx)
 	if ex != nil {
 		return ctx
@@ -31,7 +31,7 @@ func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 		return nil, h2, core.StatusNotFound()
 	}
 	// Testing only
-	ctx = testContext(ctx, resource)
+	ctx = testOverride(ctx, resource)
 
 	// Set XFrom so that pgxsql logging is correct.
 	h = httpx.SetHeader(h, core.XFrom, module.Authority)
