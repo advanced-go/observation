@@ -17,32 +17,32 @@ var (
 )
 
 // Exchange - HTTP exchange function
-func Exchange(r *http.Request) (resp *http.Response, status *core.Status) {
+func Exchange(r *http.Request) (*http.Response, *core.Status) {
 	h2 := make(http.Header)
 	h2.Add(httpx.ContentType, httpx.ContentTypeText)
 
 	if r == nil {
-		status1 := core.NewStatusError(http.StatusBadRequest, errors.New("request is nil"))
-		return httpx.NewResponse[core.Log](status1.HttpCode(), h2, status1.Err)
+		status := core.NewStatusError(http.StatusBadRequest, errors.New("request is nil"))
+		return httpx.NewResponse[core.Log](status.HttpCode(), h2, status.Err)
 	}
-	p, status2 := httpx.ValidateURL(r.URL, module.Authority)
-	if !status2.OK() {
-		resp1, _ := httpx.NewResponse[core.Log](status2.HttpCode(), h2, status2.Err)
-		return resp1, status2
+	p, status := httpx.ValidateURL(r.URL, module.Authority)
+	if !status.OK() {
+		resp1, _ := httpx.NewResponse[core.Log](status.HttpCode(), h2, status.Err)
+		return resp1, status
 	}
 	core.AddRequestId(r.Header)
 	switch p.Resource {
 	case module.ObservationTimeseries:
-		resp, status = timeseriesExchange[core.Log](r, p)
+		resp, status1 := timeseriesExchange[core.Log](r, p)
 		resp.Header.Add(core.XRoute, timeseries1.Route)
-		return
+		return resp, status1
 	case core.VersionPath:
-		resp, status = httpx.NewVersionResponse(module.Version), core.StatusOK()
+		resp, status1 := httpx.NewVersionResponse(module.Version), core.StatusOK()
 		resp.Header.Add(core.XRoute, module.VersionRoute)
-		return
+		return resp, status1
 	case core.AuthorityPath:
-		resp, status = authorityResponse, core.StatusOK()
-		return
+		resp, status1 := authorityResponse, core.StatusOK()
+		return resp, status1
 	case core.HealthReadinessPath, core.HealthLivenessPath:
 		return httpx.NewHealthResponseOK(), core.StatusOK()
 	default:

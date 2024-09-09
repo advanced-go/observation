@@ -20,7 +20,7 @@ func TestExchange1(t *testing.T) {
 		status *core.Status
 	}{
 		//{name: "read-request-error", req: readRequest("", t), resp: readResponse(testrsc.TS1GetRespURL, t), status: core.StatusOK()},
-		{name: "get-entry", req: httpt.NewRequestTest(testrsc.TS1GetReqURL, t), resp: httpt.NewResponseTest(testrsc.TS1GetRespURL, t), status: core.StatusOK()},
+		{name: "get-entry", req: httpt.NewRequestTest(testrsc.TS1GetReq, t), resp: httpt.NewResponseTest(testrsc.TS1GetResp, t), status: core.StatusOK()},
 	}
 	for _, tt := range tests {
 		success := true

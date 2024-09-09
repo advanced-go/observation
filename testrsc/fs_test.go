@@ -11,6 +11,6 @@ func ExampleReadFile() {
 	fmt.Printf("test: ReadFile() -> [buff:%v] [status:%v]\n", len(bytes), status)
 
 	//Output:
-	//test: ReadFile() -> [buff:1456] [status:OK]
+	//test: ReadFile() -> [buff:1512] [status:OK]
 
 }
