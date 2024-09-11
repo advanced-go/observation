@@ -29,6 +29,19 @@ func ExampleExchange_Invalid() {
 
 }
 
+func ExampleExchange_Authority() {
+	r, _ := http.NewRequest("", "http://localhost:8083/github/advanced-go/observation:authority", nil)
+	resp, status := Exchange(r)
+	if status.OK() {
+		//buf, _ := io.ReadAll(resp.Body, nil)
+		fmt.Printf("test: Exchange(r) -> [status:%v] [status-code:%v] [%v]\n", status, resp.StatusCode, resp.Header.Get(core.XAuthority))
+	}
+
+	//Output:
+	//test: Exchange(r) -> [status:OK] [status-code:200] [github/advanced-go/observation]
+
+}
+
 func ExampleExchange_Timeseries_dbClient_Error() {
 	uri := "http://localhost:8081/github/advanced-go/observation:v1/timeseries?region=*"
 	req, _ := http.NewRequest(http.MethodGet, uri, nil)
