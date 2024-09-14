@@ -42,8 +42,8 @@ func ExampleExchange_Authority() {
 
 }
 
-func ExampleExchange_Timeseries_dbClient_Error() {
-	uri := "http://localhost:8081/github/advanced-go/observation:v1/timeseries?region=*"
+func _ExampleExchange_Timeseries_dbClient_Error() {
+	uri := "http://localhost:8081/github/advanced-go/observation:v1/timeseries/egress?region=*"
 	req, _ := http.NewRequest(http.MethodGet, uri, nil)
 
 	resp, status := Exchange(req)

@@ -4,7 +4,7 @@ const (
 	ts1BasePath = "file:///f:/files/timeseries1"
 
 	TS1EgressEntry      = ts1BasePath + "/egress-entry.json"
-	TS1EgressEntryTest  = ts1BasePath + "/entry-test.json"
+	TS1EgressEntryTest  = ts1BasePath + "/egress-entry-test.json"
 	TS1IngressEntry     = ts1BasePath + "/ingress-entry.json"
 	TS1IngressEntryTest = ts1BasePath + "/ingress-entry-test.json"
 
