@@ -20,6 +20,7 @@ type Entry struct {
 	Zone       string `json:"zone"`
 	SubZone    string `json:"sub-zone"`
 	Host       string `json:"host"`
+	Route      string `json:"route"`
 	InstanceId string `json:"instance-id"`
 
 	RequestId string `json:"request-id"`
@@ -41,8 +42,6 @@ type Entry struct {
 	RateLimit      float64 `json:"rate-limit"`
 	RateBurst      int32   `json:"rate-burst"`
 	ControllerCode string  `json:"cc"`
-
-	Route string `json:"route"`
 }
 
 func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
@@ -96,16 +95,6 @@ func (Entry) Scan(columnNames []string, values []any) (e Entry, err error) {
 
 		case common.RouteName:
 			e.Route = values[i].(string)
-		/*
-				case RouteToName:
-				e.RouteTo = values[i].(string)
-			case RoutePercentName:
-				e.RouteTo = values[i].(string)
-			case RouteCodeName:
-				e.RouteTo = values[i].(string)
-
-
-		*/
 		case common.TimeoutName:
 			e.Timeout = values[i].(int32)
 		case common.RateLimitName:

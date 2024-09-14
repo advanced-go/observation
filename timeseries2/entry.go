@@ -20,6 +20,7 @@ type Entry struct {
 	Zone       string `json:"zone"`
 	SubZone    string `json:"sub-zone"`
 	Host       string `json:"host"`
+	Route      string `json:"route"`
 	InstanceId string `json:"instance-id"`
 
 	RequestId string `json:"request-id"`
@@ -42,7 +43,6 @@ type Entry struct {
 	RateBurst      int32   `json:"rate-burst"`
 	ControllerCode string  `json:"cc"`
 
-	Route        string `json:"route"`
 	RouteTo      string `json:"route-to"`
 	RoutePercent int    `json:"route-percent"`
 	RouteCode    string `json:"rc"`

@@ -8,8 +8,10 @@ import (
 )
 
 const (
-	PkgPath      = "github/advanced-go/observation/threshold1"
-	baseResource = "threshold"
+	PkgPath           = "github/advanced-go/observation/threshold1"
+	Route             = "threshold"
+	thresholdResource = "threshold"
+	thresholdSelect   = "select * from threshold"
 )
 
 // Get - threshold1 GET

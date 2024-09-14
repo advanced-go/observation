@@ -34,6 +34,7 @@ func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 	ctx = testOverride(ctx, resource)
 
 	// Set XFrom so that pgxsql logging is correct.
+	h2 = httpx.SetHeader(h2, httpx.ContentType, httpx.ContentTypeText)
 	h = httpx.SetHeader(h, core.XFrom, module.Authority)
 	entries, status = pgxsql.QueryT[T](ctx, h, common.AccessLogResource, common.AccessLogSelect, values)
 	if !status.OK() {
@@ -45,6 +46,8 @@ func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 	}
 	if len(entries) == 0 {
 		status = core.NewStatus(http.StatusNotFound)
+	} else {
+		h2.Set(httpx.ContentType, httpx.ContentTypeJson)
 	}
 	return
 }

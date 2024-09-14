@@ -1,19 +1,25 @@
 package testrsc
 
 const (
-	TS1BasePath = "file:///f:/files/timeseries1"
-	TS2BasePath = "file:///f:/files/timeseries2"
+	ts1BasePath = "file:///f:/files/timeseries1"
 
-	TS1EgressEntry      = TS1BasePath + "/egress-entry.json"
-	TS1EgressEntryTest  = TS1BasePath + "/egress-entry-test.json"
-	TS1IngressEntry     = TS1BasePath + "/ingress-entry.json"
-	TS1IngressEntryTest = TS1BasePath + "/ingress-entry-test.json"
+	TS1EgressEntry      = ts1BasePath + "/egress-entry.json"
+	TS1EgressEntryTest  = ts1BasePath + "/entry-test.json"
+	TS1IngressEntry     = ts1BasePath + "/ingress-entry.json"
+	TS1IngressEntryTest = ts1BasePath + "/ingress-entry-test.json"
 
-	TS1GetReq  = TS1BasePath + "/get-req.txt"
-	TS1GetResp = TS1BasePath + "/get-resp.txt"
+	TS1GetReq  = ts1BasePath + "/get-req.txt"
+	TS1GetResp = ts1BasePath + "/get-resp.txt"
 
-	TS2IngressEntry     = TS2BasePath + "/ingress-entry.json"
-	TS2IngressEntryTest = TS1BasePath + "/ingress-entry-test.json"
-	TS2EgressEntry      = TS2BasePath + "/egress-entry.json"
-	TS2EgressEntryTest  = TS1BasePath + "/egress-entry-test.json"
+	ts2BasePath         = "file:///f:/files/timeseries2"
+	TS2IngressEntry     = ts2BasePath + "/ingress-entry.json"
+	TS2IngressEntryTest = ts2BasePath + "/ingress-entry-test.json"
+	TS2EgressEntry      = ts2BasePath + "/egress-entry.json"
+	TS2EgressEntryTest  = ts2BasePath + "/entry-test.json"
+)
+
+const (
+	th1BasePath = "file:///f:/files/threshold1"
+
+	TH1EntryTest = th1BasePath + "/entry-test.json"
 )

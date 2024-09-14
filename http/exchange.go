@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/advanced-go/observation/module"
+	"github.com/advanced-go/observation/threshold1"
 	"github.com/advanced-go/observation/timeseries1"
 	"github.com/advanced-go/stdlib/core"
 	"github.com/advanced-go/stdlib/httpx"
@@ -32,13 +33,16 @@ func Exchange(r *http.Request) (*http.Response, *core.Status) {
 	}
 	core.AddRequestId(r.Header)
 	switch p.Resource {
-	case module.ObservationTimeseries:
+	case timeseries:
 		resp, status1 := timeseriesExchange[core.Log](r, p)
 		resp.Header.Add(core.XRoute, timeseries1.Route)
 		return resp, status1
+	case threshold:
+		resp, status1 := thresholdExchange[core.Log](r, p)
+		resp.Header.Add(core.XRoute, threshold1.Route)
+		return resp, status1
 	case core.VersionPath:
 		resp, status1 := httpx.NewVersionResponse(module.Version), core.StatusOK()
-		resp.Header.Add(core.XRoute, module.VersionRoute)
 		return resp, status1
 	case core.AuthorityPath:
 		resp, status1 := authorityResponse, core.StatusOK()
