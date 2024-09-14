@@ -27,6 +27,7 @@ func testOverride(ctx context.Context, resource string) context.Context {
 func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.Header, resource string, values url.Values) (entries []T, h2 http.Header, status *core.Status) {
 	var e E
 
+	h2 = httpx.SetHeader(h2, httpx.ContentType, httpx.ContentTypeText)
 	if values == nil {
 		return nil, h2, core.StatusNotFound()
 	}
@@ -34,7 +35,6 @@ func get[E core.ErrorHandler, T pgxsql.Scanner[T]](ctx context.Context, h http.H
 	ctx = testOverride(ctx, resource)
 
 	// Set XFrom so that PostgreSQL logging is correct.
-	h2 = httpx.SetHeader(h2, httpx.ContentType, httpx.ContentTypeText)
 	h = httpx.SetHeader(h, core.XFrom, module.Authority)
 	entries, status = pgxsql.QueryT[T](ctx, h, common.AccessLogResource, common.AccessLogSelect, values)
 	if !status.OK() {
